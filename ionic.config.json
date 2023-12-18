@@ -1,0 +1,7 @@
+{
+  "name": "AnimalPlace",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
