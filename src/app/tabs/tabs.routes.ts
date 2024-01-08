@@ -21,7 +21,21 @@ export const routes: Routes = [
         loadComponent: () =>
           import('../tab3/tab3.page').then((m) => m.Tab3Page),
       },
-     
+      {
+       path: 'map',
+      loadComponent: () =>
+        import('../map/map.page').then((m) => m.MapPage),
+      },
+      {
+        path: 'meeting',
+        loadComponent: () =>
+          import('../meeting/meeting.page').then((m) => m.MeetingPage),
+      },
+      {
+        path: 'profil',
+        loadComponent: () =>
+          import('../profil/profil.page').then((m) => m.ProfilPage),
+      },
       {
         path: '',
         redirectTo: '/tabs/tab1',
@@ -29,11 +43,7 @@ export const routes: Routes = [
       },
     ],
   },
-    {
-        path: 'map',
-        loadComponent: () =>
-          import('../map/map.page').then((m) => m.MapPage),
-      },
+ 
   {
     path: '',
     redirectTo: '/tabs/tab1',
