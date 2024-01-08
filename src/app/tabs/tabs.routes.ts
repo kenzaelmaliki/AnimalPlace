@@ -21,6 +21,7 @@ export const routes: Routes = [
         loadComponent: () =>
           import('../tab3/tab3.page').then((m) => m.Tab3Page),
       },
+     
       {
         path: '',
         redirectTo: '/tabs/tab1',
@@ -28,9 +29,15 @@ export const routes: Routes = [
       },
     ],
   },
+    {
+        path: 'map',
+        loadComponent: () =>
+          import('../map/map.page').then((m) => m.MapPage),
+      },
   {
     path: '',
     redirectTo: '/tabs/tab1',
     pathMatch: 'full',
   },
+   
 ];
