@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+    production: false,
+    apiUrl: "https://archioweb-animalsplace.onrender.com",
+    tmdbApiKey: '<change-with-your-token>',
+    qimgUrl: "https://qimg.onrender.com/api",
+    qimgSecret: "<change-with-your-token>",
 };
 
 /*

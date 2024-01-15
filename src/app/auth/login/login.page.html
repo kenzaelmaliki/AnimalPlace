@@ -1,0 +1,52 @@
+<form #loginForm="ngForm" (submit)="onSubmit(loginForm)">
+  <ion-list>
+    <!-- Email input -->
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input
+        inputmode="text"
+        #email="ngModel"
+        required="true"
+        type="email"
+        name="email"
+        [(ngModel)]="authRequest.email"
+      ></ion-input>
+    </ion-item>
+
+    <!-- Error message displayed if the email is invalid -->
+    <ion-item lines="none" *ngIf="email.invalid && email.touched">
+      <ion-text color="danger">Email is required.</ion-text>
+    </ion-item>
+
+    <!-- Password input -->
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input
+        inputmode="text"
+        #password="ngModel"
+        required="true"
+        type="password"
+        name="password"
+        [(ngModel)]="authRequest.password"
+      ></ion-input>
+    </ion-item>
+
+    <!-- Error message displayed if the password is invalid -->
+    <ion-item lines="none" *ngIf="password.invalid && password.touched">
+      <ion-text color="danger">Password is required.</ion-text>
+    </ion-item>
+  </ion-list>
+
+  <div class="ion-padding">
+    <!-- Submit button -->
+    <ion-button type="submit" expand="block" [disabled]="loginForm.invalid"
+      >Log in</ion-button
+    >
+
+    <!-- Error message displayed if the login failed -->
+    <ion-text color="danger" *ngIf="loginError">
+      Email ou mot de passe incorrect.
+    </ion-text>
+    <p>You don't have an account ? <a href="/signup">Sign up</a></p>
+  </div>
+</form>

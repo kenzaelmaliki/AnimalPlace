@@ -11,10 +11,15 @@ import { IonicModule } from '@ionic/angular';
   imports: [IonicModule, CommonModule, FormsModule]
 })
 export class MeetingPage implements OnInit {
+  isFlipped: boolean = false;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  flipCard() {
+    this.isFlipped = !this.isFlipped;
   }
 
 }

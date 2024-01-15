@@ -6,8 +6,63 @@
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
+    <img
+      class="img-connexion"
+      alt="Silhouette of mountains"
+      src="https://ionicframework.com/docs/img/demos/card-media.png"
+    />
+    <!--
     <ion-toolbar>
       <ion-title size="large">meeting</ion-title>
     </ion-toolbar>
+  -->
   </ion-header>
+
+  <ion-card
+    class="main-card"
+    [ngClass]="{'flipped': isFlipped}"
+    (click)="flipCard()"
+  >
+    <div class="flipper">
+      <div class="front">
+        <!-- Contenu de la face avant -->
+        <img
+          class="img-main-card"
+          alt="Silhouette of mountains"
+          src="https://ionicframework.com/docs/img/demos/card-media.png"
+        />
+        <img
+          class="img-profil"
+          alt="Silhouette of mountains"
+          src="https://ionicframework.com/docs/img/demos/card-media.png"
+        />
+        <ion-card-header class="custom-card-header">
+          <ion-card-title>Card Title</ion-card-title>
+        </ion-card-header>
+      </div>
+      <div class="back">
+        <!-- Contenu de la face arrière -->
+        <h1 id="nameAnimal">Snoopy</h1>
+        <ul class="custom-list">
+          <li><ion-icon src="assets/icon/patemenu.svg"></ion-icon>Shiba inu</li>
+          <li><ion-icon src="assets/icon/patemenu.svg"></ion-icon>1 ans</li>
+          <li><ion-icon src="assets/icon/patemenu.svg"></ion-icon> Lausanne</li>
+          <li>
+            <ion-icon src="assets/icon/patemenu.svg"></ion-icon> Prommenade en
+            forets
+          </li>
+        </ul>
+      </div>
+    </div>
+  </ion-card>
+
+  <div class="boxButtonTinder">
+    <button class="buttonTinder">
+      <ion-icon id="iconCross" src="assets/icon/cross.svg"></ion-icon>
+    </button>
+
+    <button class="buttonTinder">
+      <ion-icon id="iconHeart" src="assets/icon/heart.svg"></ion-icon>
+    </button>
+  </div>
 </ion-content>

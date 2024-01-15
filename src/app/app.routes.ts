@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
 
 export const routes: Routes = [
   {
@@ -22,4 +24,23 @@ export const routes: Routes = [
     loadComponent: () => import('./profil/profil.page').then( m => m.ProfilPage)
   },
 
+   { 
+    path: 'login',
+    loadChildren: () =>
+      import("./auth/login/login.page").then((m) => m.LoginPage),
+  },
+  {
+    path: 'sigup',
+    loadComponent: () => import('./auth/sigup/sigup.page').then( m => m.SignupPage)
+  },
+   
 ];
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  ],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
