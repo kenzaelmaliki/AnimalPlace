@@ -10,5 +10,7 @@ import { Storage } from "@ionic/storage";
   imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(storage: Storage) {
+    storage.create();
+  }
 }

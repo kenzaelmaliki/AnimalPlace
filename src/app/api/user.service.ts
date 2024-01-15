@@ -14,4 +14,14 @@ addUser(userData: any){
       const url = `${environment.apiUrl}/users`;
       return this.http.post<any>(url, userData);
   }
+
+  getUser(id: string): Observable<any> {
+    const url = `${environment.apiUrl}/users/${id}`;
+    return this.http.get<any>(url);
+  }
+
+  updateUser(id: string, userData: any): Observable<any> {
+    const url = `${environment.apiUrl}/users/${id}`;
+    return this.http.post<any>(url, userData);
+  }
 }

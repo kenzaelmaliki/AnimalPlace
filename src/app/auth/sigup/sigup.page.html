@@ -1,0 +1,81 @@
+1<!-- <form #loginForm="ngForm" (submit)="onSubmit(loginForm)">
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Prénom</ion-label>
+      <ion-input
+        inputmode="text"
+        #firstNameInput="ngModel"
+        required="true"
+        name="firstName"
+        [(ngModel)]="firstName"
+      ></ion-input>
+    </ion-item>
+    <ion-item
+      lines="none"
+      *ngIf="firstNameInput.invalid && firstNameInput.touched"
+    >
+      <ion-text color="danger">Veuillez saisit un prénom</ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Nom</ion-label>
+      <ion-input
+        inputmode="text"
+        #lastNameInput="ngModel"
+        required="true"
+        name="lastName"
+        [(ngModel)]="lastName"
+      ></ion-input>
+    </ion-item>
+    <ion-item
+      lines="none"
+      *ngIf="lastNameInput.invalid && lastNameInput.touched"
+    >
+      <ion-text color="danger">Veuillez saisit un nom</ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input
+        inputmode="text"
+        #emailInput="ngModel"
+        required="true"
+        name="email"
+        [(ngModel)]="email"
+      ></ion-input>
+    </ion-item>
+    <ion-item lines="none" *ngIf="emailInput.invalid && emailInput.touched">
+      <ion-text color="danger">Email is required.</ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input
+        inputmode="password"
+        #passwordInput="ngModel"
+        required="true"
+        type="password"
+        name="password"
+        [(ngModel)]="password"
+      ></ion-input>
+    </ion-item>
+    <ion-item
+      lines="none"
+      *ngIf="passwordInput.invalid && passwordInput.touched"
+    >
+      <ion-text color="danger">Password is required.</ion-text>
+    </ion-item>
+  </ion-list>
+
+  <div class="ion-padding">
+    <!-- Submit button -->
+<!--
+    <ion-button type="submit" expand="block" [disabled]="loginForm.invalid">
+      Sign up
+    </ion-button>
+    <ion-text color="danger" *ngIf="signupError">
+      Cette adresse email est déjà utilisée...
+    </ion-text>
+    <p>Already have an account ? <a href="/login">login</a></p>
+  </div>
+</form> !-->

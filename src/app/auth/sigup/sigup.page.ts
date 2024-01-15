@@ -4,12 +4,14 @@ import { Router } from '@angular/router';
 import { UserService } from '../../api/user.service';
 import { AuthRequest } from '../../models/auth-request';
 import { AuthService } from '../security/auth.service';
+import { ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-signup',
   templateUrl: './sigup.page.html',
   styleUrls: ['./sigup.page.scss'],
 })
 export class SignupPage {
+  imports = [ReactiveFormsModule];
   /**
    * This authentication request object will be updated when the user
    * edits the login form. It will then be sent to the API.
