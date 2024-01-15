@@ -9,7 +9,7 @@ import { Storage } from "@ionic/storage-angular";
 /***********************************************************/
 /*********!!! REPLACE BELOW WITH YOUR API URL !!! **********/
 /***********************************************************/
-const API_URL = "https://archioweb-animalsplace.onrender.com/";
+const API_URL = "https://archioweb-animalsplace.onrender.com";
 
 /**
  * Authentication service for login/logout.
@@ -40,7 +40,7 @@ export class AuthService {
    * currently is an authenticated user.
    */
   getUser$(): Observable<User | undefined> {
-    return this.#auth$.pipe(map((auth) => auth?.user));
+    return this.#auth$.pipe(map((auth) => auth?.User));
   }
 
   /**
@@ -48,7 +48,7 @@ export class AuthService {
    * currently is an authenticated user.
    */
   getToken$(): Observable<string | undefined> {
-    return this.#auth$.pipe(map((auth) => auth?.token));
+    return this.#auth$.pipe(map((auth) => auth?.Token));
   }
 
   /**
@@ -64,8 +64,8 @@ export class AuthService {
       delayWhen(auth => this.#saveAuth(auth)),
       map((auth) => {
         this.#auth$.next(auth);
-        console.log(`User ${auth.user.email} logged in`);
-        return auth.user;
+        console.log(`User ${auth.User.email} logged in`);
+        return auth.User;
       })
     );
   }
