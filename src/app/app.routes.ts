@@ -9,38 +9,45 @@ export const routes: Routes = [
   },
   {
     path: 'layout',
-    loadComponent: () => import('./layout/layout.page').then( m => m.LayoutPage)
+    loadComponent: () =>
+      import('./layout/layout.page').then((m) => m.LayoutPage),
   },
   {
     path: 'map',
-    loadComponent: () => import('./map/map.page').then( m => m.MapPage)
+    loadComponent: () => import('./map/map.page').then((m) => m.MapPage),
   },
   {
     path: 'meeting',
-    loadComponent: () => import('./meeting/meeting.page').then( m => m.MeetingPage)
+    loadComponent: () =>
+      import('./meeting/meeting.page').then((m) => m.MeetingPage),
   },
   {
     path: 'profil',
-    loadComponent: () => import('./profil/profil.page').then( m => m.ProfilPage)
+    loadComponent: () =>
+      import('./profil/profil.page').then((m) => m.ProfilPage),
   },
 
-   { 
+  {
     path: 'login',
     loadChildren: () =>
-      import("./auth/login/login.page").then((m) => m.LoginPage),
+      import('./auth/login/login.page').then((m) => m.LoginPage),
   },
   {
     path: 'sigup',
-    loadComponent: () => import('./auth/sigup/sigup.page').then( m => m.SignupPage)
+    loadComponent: () =>
+      import('./auth/sigup/sigup.page').then((m) => m.SignupPage),
   },
-   
+  {
+    path: 'edit-profile',
+    loadComponent: () =>
+      import('./edit-profile/edit-profile.page').then((m) => m.EditProfilePage),
+  },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
-
+export class AppRoutingModule {}

@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/profil"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Modifier le profil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-input [(ngModel)]="newFirstName" label="Nouveau prénom"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-input [(ngModel)]="newLastName" label="Nouveau nom"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-input [(ngModel)]="newEmail" label="Nouveau email"></ion-input>
+  </ion-item>
+
+  <!-- Ajoutez d'autres champs en fonction de vos besoins -->
+
+  <ion-button expand="full" (click)="saveChanges()"
+    >Enregistrer les modifications</ion-button
+  >
+
+  <ion-button expand="full" (click)="logout()">Déconnexion</ion-button>
+</ion-content>

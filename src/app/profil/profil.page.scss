@@ -1,3 +1,10 @@
 ion-avatar {
     --border-radius: 4px;
 }
+
+#reglage {
+    --border-radius: 4px;
+    display: flex;
+    justify-content: flex-end;
+    /* Aligne l'icône à droite */
+}
