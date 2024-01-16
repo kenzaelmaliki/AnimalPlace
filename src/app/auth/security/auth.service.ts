@@ -1,27 +1,35 @@
-import { Injectable } from "@angular/core";
-import { Observable, ReplaySubject, delayWhen, filter, from, map } from "rxjs";
-import { AuthResponse } from "./auth-response.model";
-import { HttpClient } from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import {
+  Observable,
+  ReplaySubject,
+  delayWhen,
+  filter,
+  from,
+  map,
+  switchMap,
+} from 'rxjs';
+import { AuthResponse } from './auth-response.model';
+import { HttpClient } from '@angular/common/http';
 import { User } from '../../models/user.model';
-import { AuthRequest } from "./auth-request.model";
-import { Storage } from "@ionic/storage-angular";
+import { AuthRequest } from './auth-request.model';
+import { Storage } from '@ionic/storage-angular';
 
 /***********************************************************/
 /*********!!! REPLACE BELOW WITH YOUR API URL !!! **********/
 /***********************************************************/
-const API_URL = "https://archioweb-animalsplace.onrender.com";
+const API_URL = 'https://archioweb-animalsplace.onrender.com';
 
 /**
  * Authentication service for login/logout.
  */
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class AuthService {
   #auth$: ReplaySubject<AuthResponse | undefined>;
 
   constructor(private http: HttpClient, private readonly storage: Storage) {
     this.#auth$ = new ReplaySubject(1);
     // Emit an undefined value on startup for now
-    this.storage.get('auth').then(auth => { 
+    this.storage.get('auth').then((auth) => {
       this.#auth$.next(auth);
     });
   }
@@ -61,7 +69,7 @@ export class AuthService {
   logIn$(authRequest: AuthRequest): Observable<User> {
     const authUrl = `${API_URL}/auth/login`;
     return this.http.post<AuthResponse>(authUrl, authRequest).pipe(
-      delayWhen(auth => this.#saveAuth(auth)),
+      delayWhen((auth) => this.#saveAuth(auth)),
       map((auth) => {
         this.#auth$.next(auth);
         console.log(`User ${auth.User.email} logged in`);
@@ -76,10 +84,26 @@ export class AuthService {
   logOut(): void {
     this.storage.remove('auth');
     this.#auth$.next(undefined);
-    console.log("User logged out");
+    console.log('User logged out');
   }
 
   #saveAuth(auth: AuthResponse) {
-    return from(this.storage.set('auth', auth))
+    return from(this.storage.set('auth', auth));
+  }
+
+  sendRequestWithToken$(
+    url: string,
+    method: string,
+    body: any
+  ): Observable<any> {
+    return this.getToken$().pipe(
+      filter((token) => Boolean(token)),
+      switchMap((token) =>
+        this.http.request<any>(method, url, {
+          headers: { Authorization: `Bearer ${token}` },
+          body: body,
+        })
+      )
+    );
   }
 }

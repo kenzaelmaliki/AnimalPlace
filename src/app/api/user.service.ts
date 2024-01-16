@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/app/auth/security/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   addUser(userData: any) {
     const url = `${environment.apiUrl}/users`;
@@ -16,13 +17,14 @@ export class UserService {
 
   getUser(id: string): Observable<any> {
     const url = `${environment.apiUrl}/users/${id}`;
-    return this.http.get<any>(url);
+    return this.authService.sendRequestWithToken$(url, 'GET', undefined);
   }
 
   updateUser(id: string, userData: any): Observable<any> {
     const url = `${environment.apiUrl}/users/${id}`;
     console.log(userData);
     console.log(id);
-    return this.http.patch<any>(url, userData);
+    //return this.http.patch<any>(url, userData);
+    return this.authService.sendRequestWithToken$(url, 'PATCH', userData);
   }
 }

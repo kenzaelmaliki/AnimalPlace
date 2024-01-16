@@ -34,17 +34,20 @@ export class EditProfilePage {
       email: this.newEmail,
     };
 
-    const user = this.authService.getUser$();
-    console.log(user);
-
     this.authService.getUser$().subscribe((user) => {
       if (user) {
-        this.userService.updateUser(user._id, userData);
+        console.log("User qu'on choppe dans le sub : ", user);
+        this.userService
+          .updateUser(user._id, userData)
+          .subscribe((response) => {
+            console.log('User dans le sub du upadte ', response);
+            this.user = response;
+          });
       }
     });
 
     this.router.navigate(['/profil']);
-    console.log(this.user);
+    console.log('user après ', this.user);
   }
 
   logout() {

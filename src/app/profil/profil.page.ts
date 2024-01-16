@@ -18,40 +18,49 @@ import { Router } from '@angular/router';
   imports: [IonicModule],
 })
 export class ProfilPage implements OnInit {
+  userID: string | undefined;
   user: User | undefined;
   animals: Animal[] | undefined;
 
   constructor(
     private readonly authService: AuthService,
     private readonly animalService: AnimalService,
+    private readonly userService: UserService,
     private readonly router: Router
   ) {}
 
   ngOnInit() {
-    this.authService.getUser$().subscribe((user) => {
-      this.user = user;
-      console.log(this.user);
-    });
-
     this.animalService.getAnimals().subscribe((animals) => {
       console.log(animals);
       this.animals = animals;
       console.log('je passe');
     });
-    /* this.userService.getUser(userId).subscribe((userData) => {
-      this.user = userData;
-    });*/
-    // Obtenez l'ID de l'utilisateur à partir de votre service d'authentification ou d'une autre source
-    const userId = this.user?._id; /* Obtenez l'ID de l'utilisateur */
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter');
+    this.fetchUserData(); // Call the method to fetch user data
+  }
+
+  fetchUserData() {
+    this.authService.getUser$().subscribe((user) => {
+      this.userID = user?._id;
+      console.log('get user ! ', user?._id);
+
+      if (this.userID) {
+        this.userService.getUser(this.userID).subscribe((user) => {
+          this.user = user;
+          console.log('user dans le sub ', this.user);
+        });
+      }
+    });
   }
 
   onIconClick() {
-    // Utilisez le service Router pour naviguer vers la nouvelle page
-    this.router.navigate(['edit-profile']); // Remplacez '/nouvelle-page' par le chemin de votre nouvelle page
+    this.router.navigate(['edit-profile']);
   }
 
   logout() {
     this.authService.logOut();
-    // Ajoutez ici la redirection vers la page de connexion
   }
 }
