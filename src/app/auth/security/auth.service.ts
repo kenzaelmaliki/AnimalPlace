@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../../models/user.model';
 import { AuthRequest } from './auth-request.model';
 import { Storage } from '@ionic/storage-angular';
+import { Router } from '@angular/router';
 
 /***********************************************************/
 /*********!!! REPLACE BELOW WITH YOUR API URL !!! **********/
@@ -26,7 +27,11 @@ const API_URL = 'https://archioweb-animalsplace.onrender.com';
 export class AuthService {
   #auth$: ReplaySubject<AuthResponse | undefined>;
 
-  constructor(private http: HttpClient, private readonly storage: Storage) {
+  constructor(
+    private http: HttpClient,
+    private readonly storage: Storage,
+    private readonly router: Router
+  ) {
     this.#auth$ = new ReplaySubject(1);
     // Emit an undefined value on startup for now
     this.storage.get('auth').then((auth) => {
@@ -85,6 +90,7 @@ export class AuthService {
     this.storage.remove('auth');
     this.#auth$.next(undefined);
     console.log('User logged out');
+    this.router.navigateByUrl('/login');
   }
 
   #saveAuth(auth: AuthResponse) {

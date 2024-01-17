@@ -30,7 +30,7 @@ export const routes: Routes = [
 
       {
         path: 'login',
-        loadChildren: () =>
+        loadComponent: () =>
           import('./auth/login/login.page').then((m) => m.LoginPage),
       },
       {

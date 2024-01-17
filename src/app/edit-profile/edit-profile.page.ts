@@ -52,7 +52,7 @@ export class EditProfilePage {
 
   logout() {
     this.authService.logOut();
-    this.router.navigate(['/login']);
+    this.router.navigate(['login']);
     // Ajoutez ici la redirection vers la page de connexion
   }
 }

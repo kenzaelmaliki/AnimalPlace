@@ -9,13 +9,13 @@ import { AnimalService } from '../api/animal.service';
 import { Animal } from '../models/animal.model';
 import { cogOutline } from 'ionicons/icons';
 import { Router } from '@angular/router';
-
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-profil',
   templateUrl: './profil.page.html',
   styleUrls: ['./profil.page.scss'],
   standalone: true,
-  imports: [IonicModule],
+  imports: [IonicModule, CommonModule],
 })
 export class ProfilPage implements OnInit {
   userID: string | undefined;

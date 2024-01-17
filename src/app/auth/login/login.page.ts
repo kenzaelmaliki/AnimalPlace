@@ -1,15 +1,15 @@
-import { CommonModule } from "@angular/common";
-import { Component } from "@angular/core";
-import { FormsModule, NgForm } from "@angular/forms";
-import { Router } from "@angular/router";
-import { IonicModule } from "@ionic/angular";
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 import { AuthRequest } from '../security/auth-request.model';
-import { AuthService } from "../security/auth.service";
+import { AuthService } from '../security/auth.service';
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.page.html",
-  styleUrls: ["./login.page.scss"],
+  selector: 'app-login',
+  templateUrl: './login.page.html',
+  styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule],
 })
@@ -50,7 +50,7 @@ export class LoginPage {
     // a perfectly valid "AuthRequest" object, and that's what we are telling TypeScript
     // here with "as AuthRequest".
     this.auth.logIn$(this.authRequest as AuthRequest).subscribe({
-      next: () => this.router.navigateByUrl("/"),
+      next: () => this.router.navigateByUrl('/'),
       error: (err) => {
         this.loginError = true;
         console.warn(`Authentication failed: ${err.message}`);

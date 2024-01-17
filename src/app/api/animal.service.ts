@@ -15,7 +15,7 @@ export class AnimalService {
   constructor(private http: HttpClient, private auth: AuthService) {}
 
   getAnimals(): Observable<Animal[] | undefined> {
-    const url = `${API_URL}/animals?owner=true/`;
+    const url = `${API_URL}/animals?owner=true`;
 
     // Récupérer le token depuis votre source d'authentification
     return this.auth.getToken$().pipe(
