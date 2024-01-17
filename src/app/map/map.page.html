@@ -6,8 +6,9 @@
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
-    <ion-toolbar>
+   <ion-toolbar>
       <ion-title size="large">map</ion-title>
-    </ion-toolbar>
+    </ion-toolbar> 
   </ion-header>
+  <div class="map" leaflet [leafletOptions]="mapOptions" (leafletMapReady)="onMapReady($event)" [leafletLayers]="mapMarkers"></div>
 </ion-content>
