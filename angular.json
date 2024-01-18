@@ -26,12 +26,12 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               {
-                "glob": "**/*",
+                "glob": "*/",
                 "input": "src/assets",
                 "output": "assets"
               },
               {
-                "glob": "**/*",
+                "glob": "*/",
                 "input": "node_modules/leaflet/dist/images",
                 "output": "leaflet/"
               }
@@ -106,7 +106,7 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               {
-                "glob": "**/*",
+                "glob": "*/",
                 "input": "src/assets",
                 "output": "assets"
               }
@@ -124,7 +124,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "lintFilePatterns": ["src/*/.ts", "src/*/.html"]
           }
         }
       }

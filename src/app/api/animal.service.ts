@@ -32,4 +32,19 @@ export class AnimalService {
       })
     );
   }
+
+  updateAnimals(id: string, animalsData: any): Observable<any> {
+    const url = `${environment.apiUrl}/animals/${id}`;
+    //return this.http.patch<any>(url, userData);
+    return this.auth.sendRequestWithToken$(url, 'PATCH', animalsData);
+  }
+  createAnimal(animalData: any): Observable<any> {
+    const url = `${environment.apiUrl}/animals`;
+    console.log(animalData);
+    return this.auth.sendRequestWithToken$(url, 'POST', animalData);
+  }
+  deleteAnimal(id: string): Observable<any> {
+    const url = `${environment.apiUrl}/animals/${id}`;
+    return this.auth.sendRequestWithToken$(url, 'DELETE', undefined);
+  }
 }

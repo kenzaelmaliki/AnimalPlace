@@ -17,7 +17,7 @@
     </ion-toolbar>
   -->
   </ion-header>
-
+  <h1>{{animalSelected?.name}}</h1>
   <ion-card
     class="main-card"
     [ngClass]="{'flipped': isFlipped}"
@@ -26,6 +26,7 @@
     <div class="flipper">
       <div class="front">
         <!-- Contenu de la face avant -->
+
         <img
           class="img-main-card"
           alt="Silhouette of mountains"
@@ -42,9 +43,12 @@
       </div>
       <div class="back">
         <!-- Contenu de la face arrière -->
-        <h1 id="nameAnimal">Snoopy</h1>
+        <h1 id="nameAnimal">{{animalSelected?.name}}</h1>
         <ul class="custom-list">
-          <li><ion-icon src="assets/icon/patemenu.svg"></ion-icon>Shiba inu</li>
+          <li>
+            <ion-icon src="assets/icon/patemenu.svg"></ion-icon
+            >{{animalSelected?.species}}
+          </li>
           <li><ion-icon src="assets/icon/patemenu.svg"></ion-icon>1 ans</li>
           <li><ion-icon src="assets/icon/patemenu.svg"></ion-icon> Lausanne</li>
           <li>

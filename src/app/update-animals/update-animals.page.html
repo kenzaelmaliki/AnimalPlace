@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="profil"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Modifier</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{animalSelected?.name}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</ion-content>
+<ion-button (click)="confirmDelete()" expand="block">Supprimer</ion-button>
+
+<form #contactForm="ngForm" (submit)="saveChanges()">
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating" aria-label="Nom">Nom</ion-label>
+      <ion-input
+        inputmode="text"
+        #nameInput="ngModel"
+        name="name"
+        [(ngModel)]="newName"
+        pattern="^[a-zA-Z\-']{2,50}$"
+      ></ion-input>
+    </ion-item>
+    <ion-item
+      lines="none"
+      *ngIf="nameInput.invalid && (nameInput.dirty || nameInput.touched)"
+    >
+      <ion-text color="danger">
+        Veuillez saisir un nom valide (2 à 50 caractères, lettres, tirets et
+        apostrophes autorisés).
+      </ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating" aria-label="Photo de profil (URL)"
+        >Photo de profil (URL)</ion-label
+      >
+      <ion-input
+        inputmode="url"
+        #pictureInput="ngModel"
+        name="profilPictureUrl"
+        [(ngModel)]="newProfilPictureUrl"
+      ></ion-input>
+    </ion-item>
+    <ion-item lines="none"></ion-item>
+
+    <ion-item>
+      <ion-label
+        position="floating"
+        aria-label="Activités favorites (séparées par des virgules)"
+        >Activités favorites (séparées par des virgules)</ion-label
+      >
+      <ion-input
+        inputmode="text"
+        #activitiesInput="ngModel"
+        name="favoriteActivites"
+        [(ngModel)]="newFavoriteActivites"
+      ></ion-input>
+    </ion-item>
+    <ion-item
+      lines="none"
+      *ngIf="!newFavoriteActivites || newFavoriteActivites.length === 0"
+    >
+      <ion-text color="danger"
+        >Veuillez saisir au moins une activité favorite.</ion-text
+      >
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating" aria-label="Emplacement"
+        >Emplacement</ion-label
+      >
+      <ion-input
+        inputmode="text"
+        #locationInput="ngModel"
+        name="location"
+        [(ngModel)]="newLocation"
+      ></ion-input>
+    </ion-item>
+    <ion-item
+      lines="none"
+      *ngIf="locationInput.invalid && locationInput.touched"
+    >
+      <ion-text color="danger">Veuillez saisir une location.</ion-text>
+    </ion-item>
+  </ion-list>
+
+  <div class="ion-padding">
+    <!-- Bouton de soumission -->
+
+    <ion-button expand="block" (click)="saveChanges()">Enregistrer</ion-button>
+  </div>
+</form>

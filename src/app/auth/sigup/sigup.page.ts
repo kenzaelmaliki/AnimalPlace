@@ -1,17 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../api/user.service';
 import { AuthRequest } from '../../models/auth-request';
 import { AuthService } from '../security/auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+
 @Component({
   selector: 'app-signup',
   templateUrl: './sigup.page.html',
   styleUrls: ['./sigup.page.scss'],
+  standalone: true,
+  imports: [ReactiveFormsModule, IonicModule, CommonModule, FormsModule],
 })
 export class SignupPage {
-  imports = [ReactiveFormsModule];
+  imports = [ReactiveFormsModule, CommonModule];
   /**
    * This authentication request object will be updated when the user
    * edits the login form. It will then be sent to the API.
@@ -20,6 +25,7 @@ export class SignupPage {
     email: '',
     password: '',
   };
+
   firstName: string;
   lastName: string;
   email: string;
@@ -58,23 +64,25 @@ export class SignupPage {
       password: this.password,
     };
 
-    this.signupError = false
+    this.signupError = false;
 
-    this.userService.addUser(userData).subscribe((user) => {
-      this.authRequest = {
-        email: this.email.toLocaleLowerCase(),
-        password: this.password,
-      };
-      this.auth.logIn$(this.authRequest).subscribe({
-        next: () => this.router.navigateByUrl('/'),
-        error: (err) => {
-          console.warn(`Authentication failed: ${err.message}`);
-        },
-      });
-    },
-    
-    (err) => {
+    this.userService.addUser(userData).subscribe(
+      (user) => {
+        this.authRequest = {
+          email: this.email.toLocaleLowerCase(),
+          password: this.password,
+        };
+        this.auth.logIn$(this.authRequest).subscribe({
+          next: () => this.router.navigateByUrl('/'),
+          error: (err) => {
+            console.warn(`Authentication failed: ${err.message}`);
+          },
+        });
+      },
+
+      (err) => {
         this.signupError = true;
-    });
+      }
+    );
   }
 }

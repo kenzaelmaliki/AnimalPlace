@@ -29,23 +29,38 @@ export const routes: Routes = [
       },
 
       {
-        path: 'login',
-        loadComponent: () =>
-          import('./auth/login/login.page').then((m) => m.LoginPage),
-      },
-      {
-        path: 'sigup',
-        loadComponent: () =>
-          import('./auth/sigup/sigup.page').then((m) => m.SignupPage),
-      },
-      {
         path: 'edit-profile',
         loadComponent: () =>
           import('./edit-profile/edit-profile.page').then(
             (m) => m.EditProfilePage
           ),
       },
+      {
+        path: 'update-animals',
+        loadComponent: () =>
+          import('./update-animals/update-animals.page').then(
+            (m) => m.UpdateAnimalsPage
+          ),
+      },
+      {
+        path: 'create-animals',
+        loadComponent: () =>
+          import('./create-animals/create-animals.page').then(
+            (m) => m.UpdateAnimalsPage
+          ),
+      },
     ],
+  },
+
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./auth/login/login.page').then((m) => m.LoginPage),
+  },
+  {
+    path: 'sigup',
+    loadComponent: () =>
+      import('./auth/sigup/sigup.page').then((m) => m.SignupPage),
   },
 ];
 

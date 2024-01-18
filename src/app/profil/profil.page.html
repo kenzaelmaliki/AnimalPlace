@@ -10,20 +10,34 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-buttons>
+    <ion-button (click)="createAnimal()"> Créer un animal </ion-button>
+  </ion-buttons>
   <ion-avatar>
     <!--<img src="URL_DE_VOTRE_IMAGE" alt="Silhouette of a person's head" /> -->
   </ion-avatar>
+
   <ion-list>
     <ion-item *ngFor="let animal of animals">
       <ion-avatar slot="start">
         <!--<img src="URL_DE_VOTRE_IMAGE" alt="Silhouette of a person's head" /> -->
       </ion-avatar>
       <ion-label>
+        <img src="{{animals}}" />
         <h2>{{ animal.name }}</h2>
         <p>{{ animal.species }}</p>
 
         <!-- Ajoutez d'autres propriétés de votre objet animal que vous souhaitez afficher -->
       </ion-label>
+      <ion-buttons slot="end">
+        <ion-button (click)="toggleSelection(animal)">
+          {{ animalSelected == animal ? "Desélectionner" : "Sélectionner" }}
+        </ion-button>
+      </ion-buttons>
+
+      <ion-buttons slot="end">
+        <ion-button (click)="updateAnimal(animal)"> Modifier </ion-button>
+      </ion-buttons>
     </ion-item>
   </ion-list>
 

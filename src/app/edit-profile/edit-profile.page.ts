@@ -28,26 +28,24 @@ export class EditProfilePage {
   saveChanges() {
     // Appeler le service d'authentification pour mettre à jour le profil
     // Remplacez cela par la logique réelle pour mettre à jour le profil
-    const userData = {
-      firstName: this.newFirstName,
-      lastName: this.newLastName,
-      email: this.newEmail,
-    };
 
     this.authService.getUser$().subscribe((user) => {
       if (user) {
-        console.log("User qu'on choppe dans le sub : ", user);
+        const userData = {
+          firstName: this.newFirstName ? this.newFirstName : user.firstName,
+          lastName: this.newLastName ? this.newLastName : user.lastName,
+          email: this.newEmail ? this.newEmail : user.email,
+        };
+
         this.userService
           .updateUser(user._id, userData)
           .subscribe((response) => {
-            console.log('User dans le sub du upadte ', response);
             this.user = response;
           });
       }
     });
 
     this.router.navigate(['/profil']);
-    console.log('user après ', this.user);
   }
 
   logout() {

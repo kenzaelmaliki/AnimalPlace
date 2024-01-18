@@ -1,0 +1,118 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="profil"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Ajouter un animal</ion-title>
+  </ion-toolbar>
+</ion-header>
+<form #contactForm="ngForm" (submit)="onSubmit(contactForm)">
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Nom</ion-label>
+      <ion-input
+        inputmode="text"
+        #nameInput="ngModel"
+        required="true"
+        name="name"
+        [(ngModel)]="animalRequest.name"
+      ></ion-input>
+    </ion-item>
+    <ion-item lines="none" *ngIf="nameInput.invalid && nameInput.touched">
+      <ion-text color="danger">Veuillez saisir un nom.</ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Espèce</ion-label>
+      <ion-select
+        #speciesSelect="ngModel"
+        required="true"
+        name="species"
+        [(ngModel)]="animalRequest.species"
+      >
+        <ion-select-option value="chien">Chien</ion-select-option>
+        <ion-select-option value="chat">Chat</ion-select-option>
+        <ion-select-option value="lapin">Lapin</ion-select-option>
+        <ion-select-option value="cheval">Cheval</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item
+      lines="none"
+      *ngIf="speciesSelect.invalid && speciesSelect.touched"
+    >
+      <ion-text color="danger">Veuillez sélectionner une espèce.</ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Âge</ion-label>
+      <!-- Validation : autoriser uniquement les chiffres -->
+      <ion-input
+        inputmode="numeric"
+        type="text"
+        #ageInput="ngModel"
+        name="age"
+        [(ngModel)]="animalRequest.age"
+        pattern="[0-9]*"
+      ></ion-input>
+    </ion-item>
+    <ion-item lines="none" *ngIf="ageInput.invalid && ageInput.touched">
+      <ion-text color="danger">Veuillez saisir un âge valide.</ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Photo de profil (URL)</ion-label>
+      <ion-input
+        inputmode="url"
+        #pictureInput="ngModel"
+        name="profilPictureUrl"
+        [(ngModel)]="animalRequest.profilPictureUrl"
+      ></ion-input>
+    </ion-item>
+    <ion-item lines="none"></ion-item>
+
+    <ion-item>
+      <ion-label position="floating"
+        >Activités favorites (séparées par des virgules)</ion-label
+      >
+      <ion-input
+        inputmode="text"
+        #activitiesInput="ngModel"
+        required="true"
+        name="favoriteActivites"
+        [(ngModel)]="animalRequest.favoriteActivites"
+      ></ion-input>
+    </ion-item>
+    <ion-item
+      lines="none"
+      *ngIf="activitiesInput.invalid && activitiesInput.touched"
+    >
+      <ion-text color="danger"
+        >Veuillez saisir au moins une activité favorite.</ion-text
+      >
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Emplacement</ion-label>
+      <ion-input
+        inputmode="text"
+        #locationInput="ngModel"
+        required="true"
+        name="location"
+        [(ngModel)]="animalRequest.location"
+      ></ion-input>
+    </ion-item>
+    <ion-item
+      lines="none"
+      *ngIf="locationInput.invalid && locationInput.touched"
+    >
+      <ion-text color="danger">Veuillez saisir une location.</ion-text>
+    </ion-item>
+  </ion-list>
+
+  <div class="ion-padding">
+    <!-- Bouton de soumission -->
+    <ion-button type="submit" expand="block" [disabled]="contactForm.invalid">
+      Ajouter
+    </ion-button>
+  </div>
+</form>
