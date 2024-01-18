@@ -5,14 +5,9 @@ import { TabsPage } from './tabs/tabs.page';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'tabs',
     component: TabsPage,
     children: [
-      {
-        path: 'layout',
-        loadComponent: () =>
-          import('./layout/layout.page').then((m) => m.LayoutPage),
-      },
       {
         path: 'map',
         loadComponent: () => import('./map/map.page').then((m) => m.MapPage),
@@ -53,7 +48,7 @@ export const routes: Routes = [
   },
 
   {
-    path: 'login',
+    path: '',
     loadComponent: () =>
       import('./auth/login/login.page').then((m) => m.LoginPage),
   },

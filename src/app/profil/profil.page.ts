@@ -64,7 +64,7 @@ export class ProfilPage {
   }
 
   onIconClick() {
-    this.router.navigate(['edit-profile']);
+    this.router.navigate(['tabs/edit-profile']);
   }
 
   logout() {
@@ -87,11 +87,11 @@ export class ProfilPage {
   }
 
   createAnimal() {
-    this.router.navigate(['create-animals']);
+    this.router.navigate(['tabs/create-animals']);
   }
 
   updateAnimal(animal: Animal) {
     this.sharedDataService.animalSelected = animal;
-    this.router.navigate(['update-animals']);
+    this.router.navigate(['tabs/update-animals']);
   }
 }
