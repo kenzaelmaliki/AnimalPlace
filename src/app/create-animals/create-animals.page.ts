@@ -55,7 +55,7 @@ export class UpdateAnimalsPage {
     console.log(animalData);
     this.animalService.createAnimal(animalData).subscribe((animal) => {
       console.log('animal créé', animal);
-      this.router.navigate(['/profil']);
+      this.router.navigate(['/tabs/profil']);
     });
   }
 }

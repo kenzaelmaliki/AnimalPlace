@@ -30,6 +30,7 @@ export class SignupPage {
   lastName: string;
   email: string;
   password: string;
+  hidePassword: boolean = true;
 
   /**
    * If true, it means that the authentication API has return a failed response
@@ -84,5 +85,9 @@ export class SignupPage {
         this.signupError = true;
       }
     );
+  }
+
+  togglePasswordVisibility() {
+    this.hidePassword = !this.hidePassword;
   }
 }

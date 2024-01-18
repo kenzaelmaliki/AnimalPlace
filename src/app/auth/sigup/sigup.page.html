@@ -37,15 +37,21 @@
     <ion-item>
       <ion-label position="floating">Email</ion-label>
       <ion-input
-        inputmode="text"
+        inputmode="email"
         #emailInput="ngModel"
-        required="true"
+        required
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
         name="email"
         [(ngModel)]="email"
       ></ion-input>
     </ion-item>
     <ion-item lines="none" *ngIf="emailInput.invalid && emailInput.touched">
-      <ion-text color="danger">Email is required.</ion-text>
+      <ion-text color="danger" *ngIf="emailInput.errors?.['required']">
+        Veuillez saisir une adresse e-mail.
+      </ion-text>
+      <ion-text color="danger" *ngIf="emailInput.errors?.['pattern']">
+        Adresse e-mail non valide.
+      </ion-text>
     </ion-item>
 
     <ion-item>
@@ -53,7 +59,8 @@
       <ion-input
         inputmode="password"
         #passwordInput="ngModel"
-        required="true"
+        required
+        pattern="^(?=.*[A-Z])[a-zA-Z\d!@#$%^&*]{5,}$"
         type="password"
         name="password"
         [(ngModel)]="password"
@@ -63,7 +70,13 @@
       lines="none"
       *ngIf="passwordInput.invalid && passwordInput.touched"
     >
-      <ion-text color="danger">Password is required.</ion-text>
+      <ion-text color="danger" *ngIf="passwordInput.errors?.['required']">
+        Veuillez saisir un mot de passe.
+      </ion-text>
+      <ion-text color="danger" *ngIf="passwordInput.errors?.['pattern']">
+        Le mot de passe doit contenir au moins 5 caractères et une lettre
+        majuscule.
+      </ion-text>
     </ion-item>
   </ion-list>
 

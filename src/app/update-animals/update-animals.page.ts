@@ -86,7 +86,7 @@ export class UpdateAnimalsPage implements OnInit {
       }
     });
 
-    this.router.navigate(['/profil']);
+    this.router.navigate(['/tabs/profil']);
   }
 
   /////// DELETE ANIMAL ///////
@@ -129,6 +129,6 @@ export class UpdateAnimalsPage implements OnInit {
         );
       }
     });
-    this.router.navigate(['/profil']);
+    this.router.navigate(['/tabs/profil']);
   }
 }

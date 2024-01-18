@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { PreloadAllModules, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { TabsPage } from './tabs/tabs.page';
+import { AuthGuard } from './auth/security/auth.guard';
 
 export const routes: Routes = [
   {
@@ -49,6 +50,12 @@ export const routes: Routes = [
 
   {
     path: '',
+    loadComponent: () =>
+      import('./auth/login/login.page').then((m) => m.LoginPage),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'login',
     loadComponent: () =>
       import('./auth/login/login.page').then((m) => m.LoginPage),
   },
