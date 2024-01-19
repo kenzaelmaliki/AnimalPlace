@@ -45,7 +45,7 @@ export class EditProfilePage {
       }
     });
 
-    this.router.navigate(['/profil']);
+    this.router.navigate(['/tabs/profil']);
   }
 
   logout() {

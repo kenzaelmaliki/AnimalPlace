@@ -5,121 +5,156 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-segment>
-    <ion-segment-button
-      class="iconSegment"
-      value="all"
-      (click)="filterAnimals('')"
-    >
-      <ion-label>Tous</ion-label>
-    </ion-segment-button>
+  <div *ngIf="!animalSelected">
+    <h4>
+      Vous n'avez aucun animal sélectionné, veuillez en sélectionner un dans
+      profil
+    </h4>
+    <ion-buttons class="boutonPrimaire">
+      <ion-button (click)="profil()">Profil</ion-button>
+    </ion-buttons>
+  </div>
+  <div *ngIf="animalSelected">
+    <ion-segment>
+      <ion-segment-button
+        class="iconSegment"
+        value="all"
+        (click)="filterAnimals('')"
+      >
+        <ion-label>Tous</ion-label>
+      </ion-segment-button>
 
-    <ion-segment-button
-      class="iconSegment"
-      value="chien"
-      (click)="filterAnimals('chien')"
-    >
-      <ion-label>Chiens</ion-label>
-    </ion-segment-button>
+      <ion-segment-button
+        class="iconSegment"
+        value="chien"
+        (click)="filterAnimals('chien')"
+      >
+        <ion-label>Chiens</ion-label>
+      </ion-segment-button>
 
-    <ion-segment-button
-      class="iconSegment"
-      value="chat"
-      (click)="filterAnimals('chat')"
-    >
-      <ion-label>Chats</ion-label>
-    </ion-segment-button>
+      <ion-segment-button
+        class="iconSegment"
+        value="chat"
+        (click)="filterAnimals('chat')"
+      >
+        <ion-label>Chats</ion-label>
+      </ion-segment-button>
 
-    <ion-segment-button
-      class="iconSegment"
-      value="lapin"
-      (click)="filterAnimals('lapin')"
-    >
-      <ion-label>Lapins</ion-label>
-    </ion-segment-button>
+      <ion-segment-button
+        class="iconSegment"
+        value="lapin"
+        (click)="filterAnimals('lapin')"
+      >
+        <ion-label>Lapins</ion-label>
+      </ion-segment-button>
 
-    <ion-segment-button
-      class="iconSegment"
-      value="cheval"
-      (click)="filterAnimals('cheval')"
-    >
-      <ion-label>Chevaux</ion-label>
-    </ion-segment-button>
-  </ion-segment>
+      <ion-segment-button
+        class="iconSegment"
+        value="cheval"
+        (click)="filterAnimals('cheval')"
+      >
+        <ion-label>Chevaux</ion-label>
+      </ion-segment-button>
+    </ion-segment>
 
-  <ion-header collapse="condense">
-    <img
-      class="img-connexion"
-      alt="Silhouette of mountains"
-      src="https://ionicframework.com/docs/img/demos/card-media.png"
-    />
-    <!--
+    <ion-header collapse="condense">
+      <img
+        class="img-connexion"
+        alt="Silhouette of mountains"
+        src="https://ionicframework.com/docs/img/demos/card-media.png"
+      />
+      <!--
     <ion-toolbar>
       <ion-title size="large">meeting</ion-title>
     </ion-toolbar>
   -->
-  </ion-header>
-  <h1>{{ animalSelected?.name}}</h1>
+    </ion-header>
 
-  <ion-card>
-    <!-- Card content here -->
-  </ion-card>
-  <ion-card
-    class="main-card"
-    [ngClass]="{'flipped': isFlipped}"
-    (click)="flipCard()"
-  >
-    <div class="flipper">
-      <div class="front">
-        <!-- Contenu de la face avant -->
+    <h1>{{ animalSelected?.name}}</h1>
 
-        <img
-          class="img-main-card"
-          alt="Silhouette of mountains"
-          src="https://ionicframework.com/docs/img/demos/card-media.png"
-        />
-        <img
-          class="img-profil"
-          alt="Silhouette of mountains"
-          src="https://ionicframework.com/docs/img/demos/card-media.png"
-        />
-        <ion-card-header class="custom-card-header">
-          <ion-card-title>Card Title</ion-card-title>
-        </ion-card-header>
+    <ion-card>
+      <!-- Card content here -->
+    </ion-card>
+    <ion-card
+      class="main-card"
+      [ngClass]="{'flipped': isFlipped}"
+      (click)="flipCard()"
+    >
+      <div class="flipper">
+        <div class="front">
+          <!-- Contenu de la face avant -->
+
+          <img
+            class="img-main-card"
+            alt="Silhouette of mountains"
+            src="https://ionicframework.com/docs/img/demos/card-media.png"
+          />
+          <img
+            class="img-profil"
+            alt="Silhouette of mountains"
+            src="https://ionicframework.com/docs/img/demos/card-media.png"
+          />
+          <ion-card-header class="custom-card-header">
+            <ion-card-title>Card Title</ion-card-title>
+          </ion-card-header>
+        </div>
+        <div class="back">
+          <!-- Contenu de la face arrière -->
+          <h1 id="nameAnimal">{{ animals?.[idAnimal]?.name}}</h1>
+          <ul class="custom-list">
+            <li>
+              <ion-icon src="assets/icon/patemenu.svg"></ion-icon>{{
+              animals?.[idAnimal]?.species}}
+            </li>
+            <li>
+              <ion-icon src="assets/icon/patemenu.svg"></ion-icon>{{
+              animals?.[idAnimal]?.age}}
+            </li>
+            <li>
+              <ion-icon src="assets/icon/patemenu.svg"></ion-icon> {{
+              animals?.[idAnimal]?.location}}
+            </li>
+            <li>
+              <ion-icon src="assets/icon/patemenu.svg"></ion-icon> {{
+              animals?.[idAnimal]?.favoriteActivities}}
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="back">
-        <!-- Contenu de la face arrière -->
-        <h1 id="nameAnimal">{{ animals?.[idAnimal]?.name}}</h1>
-        <ul class="custom-list">
-          <li>
-            <ion-icon src="assets/icon/patemenu.svg"></ion-icon>{{
-            animals?.[idAnimal]?.species}}
-          </li>
-          <li>
-            <ion-icon src="assets/icon/patemenu.svg"></ion-icon>{{
-            animals?.[idAnimal]?.age}}
-          </li>
-          <li>
-            <ion-icon src="assets/icon/patemenu.svg"></ion-icon> {{
-            animals?.[idAnimal]?.location}}
-          </li>
-          <li>
-            <ion-icon src="assets/icon/patemenu.svg"></ion-icon> {{
-            animals?.[idAnimal]?.favoriteActivities}}
-          </li>
-        </ul>
-      </div>
+    </ion-card>
+
+    <div class="boxButtonTinder">
+      <button class="buttonTinder" (click)="nextDisliked()">
+        <svg
+          id="#iconCross"
+          xmlns="http://www.w3.org/2000/svg"
+          width="31"
+          height="30"
+          viewBox="0 0 31 30"
+          fill="none"
+        >
+          <path
+            d="M4.62214 0.736311L15.5 11.2628L26.3215 0.790852C26.5605 0.544645 26.8485 0.347688 27.1681 0.211791C27.4877 0.0758941 27.8324 0.00385703 28.1814 0C28.9289 0 29.6456 0.287316 30.1741 0.798742C30.7026 1.31017 30.9995 2.00381 30.9995 2.72708C31.0061 3.06142 30.942 3.39354 30.8112 3.70305C30.6803 4.01256 30.4855 4.29292 30.2387 4.52695L19.2763 14.9989L30.2387 25.6073C30.7031 26.047 30.9755 26.6424 30.9995 27.2708C30.9995 27.994 30.7026 28.6877 30.1741 29.1991C29.6456 29.7105 28.9289 29.9978 28.1814 29.9978C27.8223 30.0123 27.464 29.9543 27.1292 29.8275C26.7945 29.7007 26.4906 29.508 26.237 29.2615L15.5 18.735L4.65032 29.2343C4.41221 29.4723 4.12775 29.6623 3.81335 29.7933C3.49896 29.9244 3.16086 29.9939 2.81856 29.9978C2.07115 29.9978 1.35436 29.7105 0.82586 29.1991C0.297364 28.6877 0.000458523 27.994 0.000458523 27.2708C-0.00611186 26.9364 0.0579912 26.6043 0.188834 26.2948C0.319677 25.9853 0.5145 25.7049 0.761345 25.4709L11.7237 14.9989L0.761345 4.39059C0.29688 3.95088 0.024524 3.35543 0.000458523 2.72708C0.000458523 2.00381 0.297364 1.31017 0.82586 0.798742C1.35436 0.287316 2.07115 0 2.81856 0C3.4949 0.00818123 4.14306 0.272708 4.62214 0.736311Z"
+            fill="#F55347"
+          />
+        </svg>
+      </button>
+
+      <button class="buttonTinder" (click)="nextLiked()">
+        <svg
+          id="#iconHeart"
+          xmlns="http://www.w3.org/2000/svg"
+          width="38"
+          height="35"
+          viewBox="0 0 38 35"
+          fill="none"
+        >
+          <path
+            d="M37.375 11.5234C37.375 23.8281 20.347 33.7879 19.6218 34.1992C19.4307 34.3094 19.217 34.367 19 34.367C18.783 34.367 18.5693 34.3094 18.3782 34.1992C17.653 33.7879 0.625 23.8281 0.625 11.5234C0.62804 8.63399 1.70069 5.86382 3.60763 3.82068C5.51457 1.77753 8.10006 0.628257 10.7969 0.625C14.1848 0.625 17.151 2.18594 19 4.82441C20.849 2.18594 23.8152 0.625 27.2031 0.625C29.8999 0.628257 32.4854 1.77753 34.3924 3.82068C36.2993 5.86382 37.372 8.63399 37.375 11.5234Z"
+            fill="#F55347"
+          />
+        </svg>
+      </button>
     </div>
-  </ion-card>
-
-  <div class="boxButtonTinder">
-    <button class="buttonTinder" (click)="nextDisliked()">
-      <ion-icon id="iconCross" src="assets/icon/cross.svg"></ion-icon>
-    </button>
-
-    <button class="buttonTinder" (click)="nextLiked()">
-      <ion-icon id="iconHeart" src="../../assets/icon/heart.svg"></ion-icon>
-    </button>
   </div>
-  <ion-button (click)="presentAlert()">{{this.message}}</ion-button>
 </ion-content>

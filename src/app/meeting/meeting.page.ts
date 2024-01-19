@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-meeting',
@@ -30,18 +31,25 @@ export class MeetingPage implements OnInit {
   wsMessage: WsMessage | undefined;
   message: string = '';
   wsSubscription!: Subscription;
+  animalLikeResponse: string | undefined;
 
   constructor(
     private readonly sharedDataService: SharedDataService,
     private readonly animalService: AnimalService,
     private wsService: WebsocketService,
     private http: HttpClient,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.sharedDataService.animalSelected$.subscribe((animal) => {
       this.animalSelected = animal;
+      // if there is no selected animal, display a message to select one in the profile
+      if (!this.animalSelected) {
+        // afficher un message qui faut sélectionner un animal dans le profil
+        console.log('Sélectionnez un animal dans le profil');
+      }
       // console.log('Animal sélectionné dans la page:', this.animalSelected);
     });
     // requête qui permet de récupérer les animaux des autres
@@ -51,6 +59,9 @@ export class MeetingPage implements OnInit {
         //  console.log(animals);
         this.animals = animals;
       });
+  }
+  profil() {
+    this.router.navigate(['/tabs/profil']);
   }
 
   flipCard() {
@@ -82,7 +93,18 @@ export class MeetingPage implements OnInit {
       this.wsService.listen<WsMessage>().subscribe((message) => {
         console.log('message', message);
       });
-      this.animalService.animalLike(notreAnimal, animalQuONLIke).subscribe();
+      this.animalService.animalLike(notreAnimal, animalQuONLIke).subscribe(
+        (response) => {
+          // Stockez la réponse dans votre variable locale
+          this.animalLikeResponse = response;
+          console.log('Réponse de animalLike:', this.animalLikeResponse);
+          this.presentAlert(response);
+        },
+        (error) => {
+          // Traitez les erreurs ici
+          console.error('Erreur lors de animalLike:', error);
+        }
+      );
     }
     const data = {
       type: 'Vous avez un nouveau like',
@@ -98,6 +120,8 @@ export class MeetingPage implements OnInit {
       console.log('message', this.message);
       this.sendMessage();
     });
+
+    // Stockez la réponse dans votre variable locale
   }
 
   sendMessage() {
@@ -118,11 +142,20 @@ export class MeetingPage implements OnInit {
       this.wsSubscription.unsubscribe();
     }
   } */
-  presentAlert() {
+  presentAlert(response: string) {
+    if (response === 'Vous avez un match !') {
+      this.alertController
+        .create({
+          header: 'Félicitations !',
+          message: response,
+          buttons: ['OK'],
+        })
+        .then((alert) => alert.present());
+    }
     this.alertController
       .create({
-        header: 'Félicitations !',
-        message: this.message,
+        header: 'Un nouveau message pour vous !',
+        message: response,
         buttons: ['OK'],
       })
       .then((alert) => alert.present());

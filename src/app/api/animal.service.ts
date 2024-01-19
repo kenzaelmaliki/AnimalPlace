@@ -1,11 +1,17 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse,
+  HttpResponse,
+  HttpHeaderResponse,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, from } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Animal } from '../models/animal.model';
 import { AuthService } from '../auth/security/auth.service';
-import { switchMap } from 'rxjs/operators';
-
+import { catchError, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 const API_URL = 'https://archioweb-animalsplace.onrender.com';
 
 @Injectable({
@@ -69,7 +75,11 @@ export class AnimalService {
 
   animalLike(id: string, animalData: any): Observable<any> {
     const url = `${environment.apiUrl}/meetings/like/${id}`;
-    return this.auth.sendRequestWithToken$(url, 'POST', animalData);
+    // retourner le message envoyé par l'api
+    // Assuming 'message' is a property in the response body
+    return this.auth
+      .sendRequestWithToken$(url, 'POST', animalData)
+      .pipe(map((response: any) => response.message));
   }
 
   getMatches(): Observable<any> {
