@@ -84,10 +84,10 @@
     <!-- Submit button -->
 
     <ion-button type="submit" expand="block" [disabled]="loginForm.invalid">
-      Sign up
+      S'enregistrer
     </ion-button>
     <ion-text color="danger" *ngIf="signupError">
-      Cette adresse email est déjà utilisée...
+      Email déjà utilisé ou mot de passe incorrect
     </ion-text>
     <p>Already have an account ? <a href="/login">login</a></p>
   </div>

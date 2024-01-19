@@ -8,3 +8,35 @@ ion-avatar {
     justify-content: flex-end;
     /* Aligne l'icône à droite */
 }
+
+#animalProfilPictures {
+    width: 107px;
+    height: 109px;
+    flex-shrink: 0;
+    border-radius: 40px;
+    border: 2px solid #1D3752;
+}
+
+#animalProfilPictures.clicked {
+
+    border: 2px solid #1D3752;
+}
+.myAnimalsProfil {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.animalProfile {
+    width: calc(50% - 10px);
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 2px solid #1D3752;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.animalProfile.clicked {
+    border: 2px solid #1D3752;
+}
+

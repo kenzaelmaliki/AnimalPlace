@@ -21,10 +21,16 @@
   </ion-item>
 
   <!-- Ajoutez d'autres champs en fonction de vos besoins -->
-
-  <ion-button expand="block" (click)="saveChanges()"
-    >Enregistrer les modifications</ion-button
-  >
-
-  <ion-button expand="full" (click)="logout()">Déconnexion</ion-button>
+  <div class="bouton-container">
+    <ion-buttons class="boutonPrimaire">
+      <ion-button expand="block" (click)="saveChanges()"
+        >Enregistrer les modifications</ion-button
+      >
+    </ion-buttons>
+  </div>
+  <div class="bouton-container">
+    <ion-buttons class="boutonPrimaire">
+      <ion-button expand="full" (click)="logout()">Déconnexion</ion-button>
+    </ion-buttons>
+  </div>
 </ion-content>

@@ -25,6 +25,7 @@ export class ProfilPage {
   user: User | undefined;
   animals: Animal[] | undefined;
   animalSelected: Animal | undefined;
+  listeAnimaux: Animal[] | undefined;
 
   constructor(
     private readonly authService: AuthService,
@@ -71,8 +72,9 @@ export class ProfilPage {
     this.authService.logOut();
   }
 
-  onAnimalSelect(animal: Animal) {
+  onAnimalSelect(animal: Animal, animals: Animal[]) {
     this.sharedDataService.animalSelected = animal;
+    this.sharedDataService.listeAnimaux = animals;
     console.log('animal selected ', this.sharedDataService.animalSelected);
   }
 

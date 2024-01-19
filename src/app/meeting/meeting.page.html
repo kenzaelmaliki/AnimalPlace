@@ -5,6 +5,48 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-segment>
+    <ion-segment-button
+      class="iconSegment"
+      value="all"
+      (click)="filterAnimals('')"
+    >
+      <ion-label>Tous</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button
+      class="iconSegment"
+      value="chien"
+      (click)="filterAnimals('chien')"
+    >
+      <ion-label>Chiens</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button
+      class="iconSegment"
+      value="chat"
+      (click)="filterAnimals('chat')"
+    >
+      <ion-label>Chats</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button
+      class="iconSegment"
+      value="lapin"
+      (click)="filterAnimals('lapin')"
+    >
+      <ion-label>Lapins</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button
+      class="iconSegment"
+      value="cheval"
+      (click)="filterAnimals('cheval')"
+    >
+      <ion-label>Chevaux</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
   <ion-header collapse="condense">
     <img
       class="img-connexion"
@@ -17,7 +59,11 @@
     </ion-toolbar>
   -->
   </ion-header>
-  <h1>{{animalSelected?.name}}</h1>
+  <h1>{{ animalSelected?.name}}</h1>
+
+  <ion-card>
+    <!-- Card content here -->
+  </ion-card>
   <ion-card
     class="main-card"
     [ngClass]="{'flipped': isFlipped}"
@@ -43,17 +89,23 @@
       </div>
       <div class="back">
         <!-- Contenu de la face arrière -->
-        <h1 id="nameAnimal">{{animalSelected?.name}}</h1>
+        <h1 id="nameAnimal">{{ animals?.[idAnimal]?.name}}</h1>
         <ul class="custom-list">
           <li>
-            <ion-icon src="assets/icon/patemenu.svg"></ion-icon
-            >{{animalSelected?.species}}
+            <ion-icon src="assets/icon/patemenu.svg"></ion-icon>{{
+            animals?.[idAnimal]?.species}}
           </li>
-          <li><ion-icon src="assets/icon/patemenu.svg"></ion-icon>1 ans</li>
-          <li><ion-icon src="assets/icon/patemenu.svg"></ion-icon> Lausanne</li>
           <li>
-            <ion-icon src="assets/icon/patemenu.svg"></ion-icon> Prommenade en
-            forets
+            <ion-icon src="assets/icon/patemenu.svg"></ion-icon>{{
+            animals?.[idAnimal]?.age}}
+          </li>
+          <li>
+            <ion-icon src="assets/icon/patemenu.svg"></ion-icon> {{
+            animals?.[idAnimal]?.location}}
+          </li>
+          <li>
+            <ion-icon src="assets/icon/patemenu.svg"></ion-icon> {{
+            animals?.[idAnimal]?.favoriteActivities}}
           </li>
         </ul>
       </div>
@@ -61,12 +113,12 @@
   </ion-card>
 
   <div class="boxButtonTinder">
-    <button class="buttonTinder">
+    <button class="buttonTinder" (click)="nextDisliked()">
       <ion-icon id="iconCross" src="assets/icon/cross.svg"></ion-icon>
     </button>
 
-    <button class="buttonTinder">
-      <ion-icon id="iconHeart" src="assets/icon/heart.svg"></ion-icon>
+    <button class="buttonTinder" (click)="nextLiked()">
+      <ion-icon id="iconHeart" src="../../assets/icon/heart.svg"></ion-icon>
     </button>
   </div>
 </ion-content>

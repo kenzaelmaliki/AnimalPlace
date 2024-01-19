@@ -33,6 +33,25 @@ export class AnimalService {
     );
   }
 
+  getAnimalsAll(species: string): Observable<Animal[] | undefined> {
+    const url = `${API_URL}/animals?species=${species}`;
+    console.log(species);
+    // Récupérer le token depuis votre source d'authentification
+    return this.auth.getToken$().pipe(
+      // Handle the token value in the pipe
+      switchMap((authToken) => {
+        // Ajouter le token à l'en-tête d'autorisation
+        const headers = new HttpHeaders().set(
+          'Authorization',
+          `Bearer ${authToken}`
+        );
+
+        // Ajouter les en-têtes à la requête HTTP
+        return this.http.get<Animal[]>(url, { headers });
+      })
+    );
+  }
+
   updateAnimals(id: string, animalsData: any): Observable<any> {
     const url = `${environment.apiUrl}/animals/${id}`;
     //return this.http.patch<any>(url, userData);
@@ -46,5 +65,15 @@ export class AnimalService {
   deleteAnimal(id: string): Observable<any> {
     const url = `${environment.apiUrl}/animals/${id}`;
     return this.auth.sendRequestWithToken$(url, 'DELETE', undefined);
+  }
+
+  animalLike(id: string, animalData: any): Observable<any> {
+    const url = `${environment.apiUrl}/meetings/like/${id}`;
+    return this.auth.sendRequestWithToken$(url, 'POST', animalData);
+  }
+
+  getMatches(): Observable<any> {
+    const url = `${environment.apiUrl}/meetings/matches`;
+    return this.auth.sendRequestWithToken$(url, 'GET', undefined);
   }
 }

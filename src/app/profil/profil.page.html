@@ -5,27 +5,26 @@
       id="reglage"
       (click)="onIconClick()"
       src="../../assets/icon/reglage.svg"
+      color="black"
     ></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-buttons>
-    <ion-button (click)="createAnimal()"> Créer un animal </ion-button>
-  </ion-buttons>
+  <h2>Mes animaux</h2>
+
   <ion-avatar>
     <!--<img src="URL_DE_VOTRE_IMAGE" alt="Silhouette of a person's head" /> -->
   </ion-avatar>
 
-  <ion-list>
+  <ion-list class="myAnimalsProfil">
     <ion-item *ngFor="let animal of animals">
       <ion-avatar slot="start">
         <!--<img src="URL_DE_VOTRE_IMAGE" alt="Silhouette of a person's head" /> -->
       </ion-avatar>
       <ion-label>
-        <img src="{{animals}}" />
+        <img id="animalProfilPictures" src="{{animals}}" />
         <h2>{{ animal.name }}</h2>
-        <p>{{ animal.species }}</p>
 
         <!-- Ajoutez d'autres propriétés de votre objet animal que vous souhaitez afficher -->
       </ion-label>
@@ -40,6 +39,12 @@
       </ion-buttons>
     </ion-item>
   </ion-list>
+  <div class="bouton-container">
+    <ion-buttons class="boutonPrimaire">
+      <ion-button (click)="createAnimal()"> Créer un animal </ion-button>
+    </ion-buttons>
+  </div>
+  <h2>Mes matchs</h2>
 
   <!-- Autre contenu ici -->
 </ion-content>
