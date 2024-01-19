@@ -11,6 +11,7 @@ export class SharedDataService {
   private _animalSelected = new BehaviorSubject<Animal | undefined>(undefined);
   private _notifyAnimalDeleted = new BehaviorSubject<void>(undefined);
   private _listeAnimaux = new BehaviorSubject<Animal[] | undefined>(undefined);
+  private _listeMatches = new BehaviorSubject<any[] | undefined>(undefined);
 
   notifyAnimalDeleted() {
     this._notifyAnimalDeleted.next();
@@ -29,7 +30,7 @@ export class SharedDataService {
     return this._animalSelected.asObservable();
   }
 
-  set listeAnimaux(value: Animal[] | undefined) {
+  set listeAnimaux(value: any[] | undefined) {
     console.log('selection set');
     this._listeAnimaux.next(value);
   }

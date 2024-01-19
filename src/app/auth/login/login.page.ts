@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { AuthRequest } from '../security/auth-request.model';
 import { AuthService } from '../security/auth.service';
-
+import { WebsocketService } from 'src/app/websocket.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -29,7 +29,11 @@ export class LoginPage {
    */
   loginError = false;
 
-  constructor(private auth: AuthService, private router: Router) {
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private wsService: WebsocketService
+  ) {
     this.authRequest = {};
   }
 

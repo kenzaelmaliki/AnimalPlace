@@ -11,13 +11,13 @@
   <ion-header collapse="condense">
     <div class="header-container">
       <ion-toolbar> </ion-toolbar>
-      <div class="deleteButton-container">
-        <ion-buttons class="deleteButton">
-          <ion-button (click)="confirmDelete()">Supprimer</ion-button>
-        </ion-buttons>
-      </div>
     </div>
   </ion-header>
+  <div class="deleteButton-container">
+    <ion-buttons slot="end" class="deleteButton">
+      <ion-button (click)="confirmDelete()">Supprimer</ion-button>
+    </ion-buttons>
+  </div>
   <h3>L'actualité de {{animalSelected?.name}}</h3>
 
   <form #contactForm="ngForm" (submit)="saveChanges()">

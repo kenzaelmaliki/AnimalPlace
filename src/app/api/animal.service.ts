@@ -35,7 +35,7 @@ export class AnimalService {
 
   getAnimalsAll(species: string): Observable<Animal[] | undefined> {
     const url = `${API_URL}/animals?species=${species}`;
-    console.log(species);
+    // console.log(species);
     // Récupérer le token depuis votre source d'authentification
     return this.auth.getToken$().pipe(
       // Handle the token value in the pipe
@@ -73,7 +73,7 @@ export class AnimalService {
   }
 
   getMatches(): Observable<any> {
-    const url = `${environment.apiUrl}/meetings/matches`;
+    const url = `${environment.apiUrl}/meetings/users`;
     return this.auth.sendRequestWithToken$(url, 'GET', undefined);
   }
 }

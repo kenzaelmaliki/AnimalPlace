@@ -15,6 +15,7 @@ ion-avatar {
     flex-shrink: 0;
     border-radius: 40px;
     border: 2px solid #1D3752;
+    justify-content: center;
 }
 
 #animalProfilPictures.clicked {
@@ -22,8 +23,8 @@ ion-avatar {
     border: 2px solid #1D3752;
 }
 .myAnimalsProfil {
-    display: flex;
-    flex-wrap: wrap;
+   // display: flex;
+    //flex-wrap: wrap;
     justify-content: space-between;
 }
 
@@ -40,3 +41,9 @@ ion-avatar {
     border: 2px solid #1D3752;
 }
 
+.petitBouton {
+   
+    color: #1D3752;;
+   
+   
+}

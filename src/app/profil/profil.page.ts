@@ -26,6 +26,7 @@ export class ProfilPage {
   animals: Animal[] | undefined;
   animalSelected: Animal | undefined;
   listeAnimaux: Animal[] | undefined;
+  matches: any[] | undefined;
 
   constructor(
     private readonly authService: AuthService,
@@ -44,23 +45,28 @@ export class ProfilPage {
     this.animalService.getAnimals().subscribe((animals) => {
       console.log(animals);
       this.animals = animals;
-      console.log('je passe');
+      // console.log('je passe');
     });
     this.authService.getUser$().subscribe((user) => {
       this.userID = user?._id;
-      console.log('get user ! ', user?._id);
+      //   console.log('get user ! ', user?._id);
 
       if (this.userID) {
         this.userService.getUser(this.userID).subscribe((user) => {
           this.user = user;
-          console.log('user dans le sub ', this.user);
+          // console.log('user dans le sub ', this.user);
         });
       }
     });
 
     this.sharedDataService.animalSelected$.subscribe((animal) => {
-      console.log('Animal sélectionné dans ProfilPage:', animal);
+      //  console.log('Animal sélectionné dans ProfilPage:', animal);
       this.animalSelected = animal;
+    });
+
+    this.animalService.getMatches().subscribe((matches) => {
+      this.matches = matches;
+      console.log('matches', matches);
     });
   }
 
@@ -75,6 +81,7 @@ export class ProfilPage {
   onAnimalSelect(animal: Animal, animals: Animal[]) {
     this.sharedDataService.animalSelected = animal;
     this.sharedDataService.listeAnimaux = animals;
+
     console.log('animal selected ', this.sharedDataService.animalSelected);
   }
 

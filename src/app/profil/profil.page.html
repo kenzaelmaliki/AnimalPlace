@@ -17,34 +17,61 @@
     <!--<img src="URL_DE_VOTRE_IMAGE" alt="Silhouette of a person's head" /> -->
   </ion-avatar>
 
-  <ion-list class="myAnimalsProfil">
-    <ion-item *ngFor="let animal of animals">
-      <ion-avatar slot="start">
-        <!--<img src="URL_DE_VOTRE_IMAGE" alt="Silhouette of a person's head" /> -->
-      </ion-avatar>
-      <ion-label>
-        <img id="animalProfilPictures" src="{{animals}}" />
-        <h2>{{ animal.name }}</h2>
+  <ion-list class="myAnimalsProfil no-lines">
+    <ion-row>
+      <ion-col size="6" *ngFor="let animal of animals">
+        <ion-item>
+          <ion-avatar slot="">
+            <!-- <img src="URL_DE_VOTRE_IMAGE" alt="Silhouette of a person's head" /> -->
+          </ion-avatar>
+          <ion-label>
+            <img id="animalProfilPictures" src="{{animal.profilePictureURL}}" />
+            <h2>{{ animal.name }}</h2>
+            <!-- Ajoutez d'autres propriétés de votre objet animal que vous souhaitez afficher -->
+          </ion-label>
+          <ion-buttons slot="end">
+            <ion-button class="petitBouton" (click)="toggleSelection(animal)">
+              {{ animalSelected == animal ? "Désélectionner" : "Sélectionner" }}
+            </ion-button>
+          </ion-buttons>
 
-        <!-- Ajoutez d'autres propriétés de votre objet animal que vous souhaitez afficher -->
-      </ion-label>
-      <ion-buttons slot="end">
-        <ion-button (click)="toggleSelection(animal)">
-          {{ animalSelected == animal ? "Desélectionner" : "Sélectionner" }}
-        </ion-button>
-      </ion-buttons>
-
-      <ion-buttons slot="end">
-        <ion-button (click)="updateAnimal(animal)"> Modifier </ion-button>
-      </ion-buttons>
-    </ion-item>
+          <ion-buttons slot="end">
+            <ion-button class="petitBouton" (click)="updateAnimal(animal)">
+              Modifier
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+      </ion-col>
+    </ion-row>
   </ion-list>
+
   <div class="bouton-container">
     <ion-buttons class="boutonPrimaire">
       <ion-button (click)="createAnimal()"> Créer un animal </ion-button>
     </ion-buttons>
   </div>
+
+  <!-- MATCHES -->
+
   <h2>Mes matchs</h2>
+  <ion-list class="myAnimalsProfil">
+    <ion-row>
+      <ion-col size="6" *ngFor="let matche of matches">
+        <ion-item>
+          <ion-avatar slot="">
+            <!-- <img src="URL_DE_VOTRE_IMAGE" alt="Silhouette of a person's head" /> -->
+          </ion-avatar>
+          <ion-label>
+            <img id="animalProfilPictures" src="{{animals}}" />
+            <h2>
+              {{matche.animal1.name}} a matché avec {{ matche.animal2.name}}
+            </h2>
+            <!-- Ajoutez d'autres propriétés de votre objet animal que vous souhaitez afficher -->
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-list>
 
   <!-- Autre contenu ici -->
 </ion-content>
