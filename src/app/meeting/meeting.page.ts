@@ -13,6 +13,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { settingsOutline } from 'ionicons/icons';
+import { addIcons } from 'ionicons';
 
 @Component({
   selector: 'app-meeting',
@@ -40,7 +42,9 @@ export class MeetingPage implements OnInit {
     private http: HttpClient,
     private alertController: AlertController,
     private router: Router
-  ) {}
+  ) {
+    addIcons({ settingsOutline });
+  }
 
   ngOnInit() {
     this.sharedDataService.animalSelected$.subscribe((animal) => {

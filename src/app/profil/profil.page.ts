@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SharedDataService } from '../shared-data.service';
 import { Storage } from '@ionic/storage-angular';
+import { settingsOutline } from 'ionicons/icons';
+import { addIcons } from 'ionicons';
 
 @Component({
   selector: 'app-profil',
@@ -35,7 +37,9 @@ export class ProfilPage {
     private readonly router: Router,
     private readonly sharedDataService: SharedDataService,
     private readonly storage: Storage
-  ) {}
+  ) {
+    addIcons({ settingsOutline });
+  }
 
   ionViewWillEnter() {
     this.fetchUserData();
