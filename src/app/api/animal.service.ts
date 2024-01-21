@@ -12,6 +12,8 @@ import { Animal } from '../models/animal.model';
 import { AuthService } from '../auth/security/auth.service';
 import { catchError, switchMap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+
 const API_URL = 'https://archioweb-animalsplace.onrender.com';
 
 @Injectable({
@@ -57,16 +59,36 @@ export class AnimalService {
       })
     );
   }
+  private handleApiError(error: any): string {
+    // Vous pouvez personnaliser cette fonction en fonction de la structure de vos erreurs API
+    if (error instanceof ErrorEvent) {
+      // Erreur côté client
+      return `Erreur côté client : ${error.message}`;
+    } else if (error && error.error && error.error.message) {
+      // Erreur côté serveur avec un message spécifique
+      return `Erreur du serveur API : ${error.error.message}`;
+    } else {
+      // Autre type d'erreur
+      return `Erreur du serveur API : ${error.status} - ${error.statusText}`;
+    }
+  }
 
   updateAnimals(id: string, animalsData: any): Observable<any> {
     const url = `${environment.apiUrl}/animals/${id}`;
     //return this.http.patch<any>(url, userData);
-    return this.auth.sendRequestWithToken$(url, 'PATCH', animalsData);
+    return this.auth
+      .sendRequestWithToken$(url, 'PATCH', animalsData)
+      .pipe(map((response: any) => response.message));
   }
   createAnimal(animalData: any): Observable<any> {
     const url = `${environment.apiUrl}/animals`;
     console.log(animalData);
-    return this.auth.sendRequestWithToken$(url, 'POST', animalData);
+    return this.auth.sendRequestWithToken$(url, 'POST', animalData).pipe(
+      map((response: any) => {
+        console.log(response);
+        return response;
+      })
+    );
   }
   deleteAnimal(id: string): Observable<any> {
     const url = `${environment.apiUrl}/animals/${id}`;

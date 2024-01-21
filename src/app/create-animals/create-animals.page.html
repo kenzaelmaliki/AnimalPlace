@@ -23,6 +23,9 @@
       <ion-item lines="none" *ngIf="nameInput.invalid && nameInput.touched">
         <ion-text color="danger">Veuillez saisir un nom.</ion-text>
       </ion-item>
+      <ion-item lines="none" *ngIf="nameInput.invalid && nameInput.touched">
+        <ion-text color="danger">{{messageError}}.</ion-text>
+      </ion-item>
 
       <ion-item>
         <ion-label position="floating">Espèce</ion-label>
@@ -123,5 +126,8 @@
         </ion-button>
       </ion-buttons>
     </div>
+    <ion-item lines="none" *ngIf="messageError">
+      <ion-text color="danger">{{ messageError }}</ion-text>
+    </ion-item>
   </form>
 </ion-content>

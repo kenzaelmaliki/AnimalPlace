@@ -61,7 +61,7 @@
       <img
         class="img-connexion"
         alt="Silhouette of mountains"
-        src="https://ionicframework.com/docs/img/demos/card-media.png"
+        src="{{animalSelected?.profilePictureURL}}"
       />
       <!--
     <ion-toolbar>
@@ -70,11 +70,14 @@
   -->
     </ion-header>
 
-    <h1>{{ animalSelected?.name}}</h1>
+    <h1>{{ animalSelected.name}}</h1>
 
-    <ion-card>
-      <!-- Card content here -->
-    </ion-card>
+    <div *ngIf="this.messagePasAnimaux">
+      <ion-card class="main-card" [ngClass]="{'flipped': isFlipped}">
+        <h2>Il n'y a plus d'animaux à rencontrer</h2>
+        <!-- Card content here -->
+      </ion-card>
+    </div>
     <ion-card
       class="main-card"
       [ngClass]="{'flipped': isFlipped}"
@@ -87,15 +90,15 @@
           <img
             class="img-main-card"
             alt="Silhouette of mountains"
-            src="https://ionicframework.com/docs/img/demos/card-media.png"
+            src="{{animals?.[idAnimal]?.profilePictureURL}}"
           />
-          <img
+          <!--  <img
             class="img-profil"
             alt="Silhouette of mountains"
             src="https://ionicframework.com/docs/img/demos/card-media.png"
-          />
+          /> -->
           <ion-card-header class="custom-card-header">
-            <ion-card-title>Card Title</ion-card-title>
+            <ion-card-title>{{animals?.[idAnimal]?.name}}</ion-card-title>
           </ion-card-header>
         </div>
         <div class="back">
@@ -122,6 +125,29 @@
         </div>
       </div>
     </ion-card>
+
+    <!-- PAS D'ANIMAUX-->
+    <ion-card
+      *ngIf="this.messagePasAnimaux"
+      class="main-card"
+      id="pasAnimaux"
+      [ngClass]="{'flipped': isFlipped}"
+      (click)="flipCard()"
+    >
+      <div class="flipper">
+        <div class="front">
+          <!-- Contenu de la face avant -->
+
+          <h1>Il n'y plus d'animaux pour le moment, revenez plus tard !</h1>
+        </div>
+
+        <div class="back">
+          <!-- Contenu de la face arrière -->
+          <h1>Il n'y plus d'animaux pour le moment, revenez plus tard !</h1>
+        </div>
+      </div>
+    </ion-card>
+    <!-- PAS D'ANIMAUX-->
 
     <div class="boxButtonTinder">
       <button class="buttonTinder" (click)="nextDisliked()">

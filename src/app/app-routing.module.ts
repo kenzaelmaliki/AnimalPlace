@@ -8,17 +8,17 @@ const routes: Routes = [
     // Add the guard to the canActivate array of this route
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./layout/layout.module').then((m) => m.LayoutPageModule),
+      import('./auth/login/login.page').then((m) => m.LoginPage),
   },
   {
     path: 'login',
     loadChildren: () =>
-      import('./auth/login/login.module').then((m) => m.LoginPageModule),
+      import('./auth/login/login.page').then((m) => m.LoginPage),
   },
   {
     path: 'signup',
     loadChildren: () =>
-      import('./auth/sigup/sigup.module').then((m) => m.SigupPageModule),
+      import('./auth/sigup/sigup.page').then((m) => m.SignupPage),
   },
 ];
 

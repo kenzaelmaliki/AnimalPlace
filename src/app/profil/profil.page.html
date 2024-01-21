@@ -58,10 +58,14 @@
             <!-- <img src="URL_DE_VOTRE_IMAGE" alt="Silhouette of a person's head" /> -->
           </ion-avatar>
           <ion-label>
-            <img id="animalProfilPictures" src="{{animals}}" />
+            <img
+              id="animalProfilPictures"
+              src="{{matche.animal2.profilePictureURL}}"
+            />
             <h2>
               {{matche.animal1.name}} a matché avec {{ matche.animal2.name}}
             </h2>
+            <p>{{matche.date.toLocaleDateString("fr")}}</p>
             <!-- Ajoutez d'autres propriétés de votre objet animal que vous souhaitez afficher -->
           </ion-label>
         </ion-item>

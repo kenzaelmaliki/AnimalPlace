@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { SharedDataService } from '../shared-data.service';
 import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
+import { PictureService } from '../picture/picture.service';
 
 @Component({
   selector: 'app-update-animals',
@@ -27,6 +28,7 @@ export class UpdateAnimalsPage implements OnInit {
   constructor(
     private readonly sharedDataService: SharedDataService,
     private animalService: AnimalService,
+    private pictureService: PictureService,
     private router: Router,
     public alertController: AlertController
   ) {}
@@ -50,6 +52,7 @@ export class UpdateAnimalsPage implements OnInit {
 
   saveChanges() {
     // Do not do anything if the form is invalid.
+    let saved = false;
 
     const updateProfilPicture =
       this.newProfilPictureUrl !== null &&
@@ -76,17 +79,25 @@ export class UpdateAnimalsPage implements OnInit {
       location: updateLocation,
     };
 
-    this.sharedDataService.animalSelected$.subscribe((animal) => {
-      if (animal) {
-        this.animalService
-          .updateAnimals(animal._id, animalData)
-          .subscribe((response) => {
-            this.animalSelected = response;
-          });
-      }
-    });
+    console.log('animalData', animalData);
 
-    this.router.navigate(['/tabs/profil']);
+    this.sharedDataService.animalSelected$.subscribe(
+      (animal) => {
+        if (animal && !saved) {
+          console.log('animal ', animal, ' updated');
+          this.animalService
+            .updateAnimals(animal._id, animalData)
+            .subscribe((response) => {
+              this.animalSelected = response;
+              saved = true;
+              this.router.navigate(['/tabs/profil']);
+            });
+        }
+      },
+      (error) => {
+        alert('Erreur lors de la mise à jour de l animal');
+      }
+    );
   }
 
   /////// DELETE ANIMAL ///////
@@ -130,5 +141,13 @@ export class UpdateAnimalsPage implements OnInit {
       }
     });
     this.router.navigate(['/tabs/profil']);
+  }
+
+  /////// UPLOAD PICTURE ///////
+  takePicture() {
+    this.pictureService.takeAndUploadPicture().subscribe((picture) => {
+      console.log("Image successfully uploaded to Qimg's API ", picture);
+      this.newProfilPictureUrl = picture.url;
+    });
   }
 }

@@ -70,7 +70,12 @@ export class ProfilPage {
 
     this.animalService.getMatches().subscribe((matches) => {
       this.matches = matches;
-      console.log('matches', matches);
+      console.log('matches picked up', matches);
+      if (this.matches) {
+        this.matches.forEach((match) => {
+          match.date = new Date(match.date);
+        });
+      }
     });
   }
 

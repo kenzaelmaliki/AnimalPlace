@@ -3,11 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-    production: false,
-    apiUrl: "https://archioweb-animalsplace.onrender.com",
-    tmdbApiKey: '<change-with-your-token>',
-    qimgUrl: "https://qimg.onrender.com/api",
-    qimgSecret: "<change-with-your-token>",
+  production: false,
+  apiUrl: 'https://archioweb-animalsplace.onrender.com',
+  tmdbApiKey: '<change-with-your-token>',
+  qimgUrl: 'https://comem-qimg.onrender.com/api',
+  qimgSecret:
+    'B5pJ3wwne0ey61M4GGYvw9pBYshcON1Us4m3reshe2eRSy5oWrkEEutZOWv8WlXO9Qw7aCPzvfU0Jv7VPRpPJ49nQKWu/HXOGWuCG6/dqo7XL81axxj6R/u4y/nVNS8K09VITl7d+rGvjBCyWUJl+sCCZeB94+xsYAXBOXF3Jmg=',
 };
 
 /*

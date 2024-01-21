@@ -34,6 +34,7 @@ export class MeetingPage implements OnInit {
   message: string = '';
   wsSubscription!: Subscription;
   animalLikeResponse: string | undefined;
+  messagePasAnimaux = false;
 
   constructor(
     private readonly sharedDataService: SharedDataService,
@@ -73,42 +74,61 @@ export class MeetingPage implements OnInit {
   }
 
   filterAnimals(filter: string) {
+    this.messagePasAnimaux = false;
     this.selectedFilter = filter;
+
     //  console.log('ça filtre');
     this.animalService.getAnimalsAll(filter || '').subscribe((animals) => {
       this.animals = animals;
+      if (this.animals?.length === 0) {
+        this.messagePasAnimaux = true;
+        console.log('pas d animaux');
+      }
       //    console.log(`Mes animaux :  ${this.animals?.toString()}`);
     });
   }
   nextLiked() {
+    if (this.animals?.length === 0) {
+      this.messagePasAnimaux = true;
+      console.log("Pas d'animaux fin de liste");
+      return;
+    }
+    if (this.messagePasAnimaux === true) {
+      this.messagePasAnimaux = false;
+      return;
+    }
+    this.messagePasAnimaux = false;
     this.idAnimal++;
     if (this.idAnimal >= this.animals?.length!) {
       this.idAnimal = 0;
-    }
-    const animalQuONLIke = {
-      animalUserID: this.animals![this.idAnimal]._id,
-    };
+      this.messagePasAnimaux = true;
+      console.log('pas d animaux fin de liste');
+    } else {
+      const animalQuONLIke = {
+        animalUserID: this.animals![this.idAnimal]._id,
+      };
 
-    const notreAnimal = this.animalSelected?._id;
-    //  console.log('animalQuONLIke', animalQuONLIke);
-    //  console.log('notreAnimal', notreAnimal);
+      const notreAnimal = this.animalSelected?._id;
+      //  console.log('animalQuONLIke', animalQuONLIke);
+      //  console.log('notreAnimal', notreAnimal);
 
-    if (notreAnimal && animalQuONLIke) {
-      this.wsService.listen<WsMessage>().subscribe((message) => {
-        console.log('message', message);
-      });
-      this.animalService.animalLike(notreAnimal, animalQuONLIke).subscribe(
-        (response) => {
-          // Stockez la réponse dans votre variable locale
-          this.animalLikeResponse = response;
-          console.log('Réponse de animalLike:', this.animalLikeResponse);
-          this.presentAlert(response);
-        },
-        (error) => {
-          // Traitez les erreurs ici
-          console.error('Erreur lors de animalLike:', error);
-        }
-      );
+      if (notreAnimal && animalQuONLIke) {
+        this.wsService.listen<WsMessage>().subscribe((message) => {
+          console.log('message', message);
+        });
+        this.animalService.animalLike(notreAnimal, animalQuONLIke).subscribe(
+          (response) => {
+            // Stockez la réponse dans votre variable locale
+            this.animalLikeResponse = response;
+            console.log('Réponse de animalLike:', this.animalLikeResponse);
+            this.presentAlert(response);
+          },
+          (error) => {
+            // Traitez les erreurs ici
+            console.error('Erreur lors de animalLike:', error);
+          }
+        );
+      }
     }
     const data = {
       type: 'Vous avez un nouveau like',
@@ -135,9 +155,12 @@ export class MeetingPage implements OnInit {
   }
 
   nextDisliked() {
+    this.messagePasAnimaux = false;
     this.idAnimal++;
     if (this.idAnimal >= this.animals?.length!) {
       this.idAnimal = 0;
+      this.messagePasAnimaux = true;
+      console.log('pas d animaux fin de liste');
     }
   }
   /* ngOnDestroy() {
