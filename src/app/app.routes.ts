@@ -63,7 +63,11 @@ export const routes: Routes = [
     path: 'sigup',
     loadComponent: () =>
       import('./auth/sigup/sigup.page').then((m) => m.SignupPage),
+  },  {
+    path: 'match',
+    loadComponent: () => import('./match/match.page').then( m => m.MatchPage)
   },
+
 ];
 
 @NgModule({

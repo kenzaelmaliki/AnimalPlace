@@ -1,0 +1,42 @@
+
+
+    .container {
+        position: absolute;
+        top: 45%;
+        left: 48%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        margin-left: 12px;
+        margin-right: 12px;
+  }
+  
+  .square {
+    width: 159px;
+    height: 161px;
+    border-radius: 40px;
+    border: 2px solid #1D3752;
+    margin:10px;
+  }
+
+  .heart {
+    margin-top: 70px;
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  }
+
+  .text-container {
+    text-align: center;
+    position: relative;
+    top:420px;  
+   
+}
+
+.text-container-deux {
+    text-align: center;
+    position: relative;
+    top: -20px;  
+   
+}
+
