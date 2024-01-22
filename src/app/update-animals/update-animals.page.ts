@@ -8,6 +8,8 @@ import { SharedDataService } from '../shared-data.service';
 import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { PictureService } from '../picture/picture.service';
+import { ErrorHandler } from '@angular/core';
+import { AppErrorHandler } from '../error-handler';
 
 @Component({
   selector: 'app-update-animals',
@@ -30,7 +32,8 @@ export class UpdateAnimalsPage implements OnInit {
     private animalService: AnimalService,
     private pictureService: PictureService,
     private router: Router,
-    public alertController: AlertController
+    public alertController: AlertController,
+    private readonly errorHandler: ErrorHandler
   ) {}
 
   ngOnInit() {
@@ -132,9 +135,13 @@ export class UpdateAnimalsPage implements OnInit {
           (response) => {
             console.log('Animal supprimé', response);
             this.sharedDataService.notifyAnimalDeleted();
-            this.router.navigate(['/profil']);
+            response = "L'animal a été supprimé";
+            this.errorHandler.handleError(response);
+            //  this.errorHandler.handleError(response);
+            this.router.navigate(['/tabs/profil']);
           },
           (error) => {
+            this.errorHandler.handleError("L'animal a bien été supprimé");
             console.error("Erreur lors de la suppression de l'animal", error);
           }
         );

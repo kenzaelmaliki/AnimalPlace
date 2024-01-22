@@ -5,6 +5,7 @@ import {
   IonicRouteStrategy,
   provideIonicAngular,
 } from '@ionic/angular/standalone';
+import { ErrorHandler } from '@angular/core';
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
@@ -13,6 +14,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AppErrorHandler } from './app/error-handler';
 
 defineCustomElements(window);
 if (environment.production) {
@@ -27,6 +29,8 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: ErrorHandler, useClass: AppErrorHandler },
+
     provideIonicAngular(),
     provideRouter(routes),
     provideHttpClient(),

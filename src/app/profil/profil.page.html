@@ -23,6 +23,7 @@
           <ion-label>
             <img id="animalProfilPictures" src="{{animal.profilePictureURL}}" />
             <h2>{{ animal.name }}</h2>
+            <p id="profil">{{ animal.species }}</p>
             <!-- Ajoutez d'autres propriétés de votre objet animal que vous souhaitez afficher -->
           </ion-label>
           <ion-buttons slot="end">
@@ -65,7 +66,7 @@
             <h2>
               {{matche.animal1.name}} a matché avec {{ matche.animal2.name}}
             </h2>
-            <p>{{matche.date.toLocaleDateString("fr")}}</p>
+            <p id="profil">{{matche.date.toLocaleDateString("fr")}}</p>
             <!-- Ajoutez d'autres propriétés de votre objet animal que vous souhaitez afficher -->
           </ion-label>
         </ion-item>
