@@ -7,7 +7,7 @@ import {
   IonLabel,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { pawOutline, personOutline, mapOutline } from 'ionicons/icons';
+import { paw, person, map } from 'ionicons/icons';
 
 @Component({
   selector: 'app-tabs',
@@ -21,9 +21,9 @@ export class TabsPage {
 
   constructor() {
     addIcons({
-      pawOutline,
-      personOutline,
-      mapOutline,
+      paw,
+      person,
+      map,
     });
   }
 }
