@@ -15,7 +15,7 @@
     </ion-buttons>
   </div>
   <div *ngIf="animalSelected">
-    <ion-segment>
+    <ion-segment class="tabChoix">
       <ion-segment-button
         class="iconSegment"
         value="all"
@@ -98,7 +98,9 @@
             src="https://ionicframework.com/docs/img/demos/card-media.png"
           /> -->
           <ion-card-header class="custom-card-header">
-            <ion-card-title>{{animals?.[idAnimal]?.name}}</ion-card-title>
+            <ion-card-title class="titleCard"
+              >{{animals?.[idAnimal]?.name}}</ion-card-title
+            >
           </ion-card-header>
         </div>
         <div class="back">
@@ -127,23 +129,12 @@
     </ion-card>
 
     <!-- PAS D'ANIMAUX-->
-    <ion-card
-      *ngIf="this.messagePasAnimaux"
-      class="main-card"
-      id="pasAnimaux"
-      [ngClass]="{'flipped': isFlipped}"
-      (click)="flipCard()"
-    >
+    <ion-card *ngIf="this.messagePasAnimaux" class="main-card" id="pasAnimaux">
       <div class="flipper">
         <div class="front">
           <!-- Contenu de la face avant -->
 
-          <h1>Il n'y plus d'animaux pour le moment, revenez plus tard !</h1>
-        </div>
-
-        <div class="back">
-          <!-- Contenu de la face arrière -->
-          <h1>Il n'y plus d'animaux pour le moment, revenez plus tard !</h1>
+          <h3>Il n'y plus d'animaux pour le moment, revenez plus tard !</h3>
         </div>
       </div>
     </ion-card>
