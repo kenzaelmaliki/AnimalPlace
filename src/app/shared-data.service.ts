@@ -13,15 +13,22 @@ export class SharedDataService {
   private _notifyAnimalDeleted = new BehaviorSubject<void>(undefined);
   private _listeAnimaux = new BehaviorSubject<Animal[] | undefined>(undefined);
   private _listeMatches = new BehaviorSubject<any[] | undefined>(undefined);
+  private _currentAnimal = new BehaviorSubject<Animal | undefined>(undefined);
 
   constructor(private readonly storage: Storage) {
     this.storage.get('animalSelected').then((animal) => {
+      this._animalSelected.next(JSON.parse(animal));
       this._animalSelected.next(JSON.parse(animal));
     });
   }
 
   notifyAnimalDeleted() {
     this._notifyAnimalDeleted.next();
+  }
+
+  set currentAnimal(value: Animal | undefined) {
+    this.storage.set('currentAnimal', JSON.stringify(value));
+    this._currentAnimal.next(value);
   }
 
   get notifyAnimalDeleted$() {
@@ -33,12 +40,10 @@ export class SharedDataService {
   }
 
   get listeAnimaux$() {
-    console.log('selection get');
     return this._animalSelected.asObservable();
   }
 
   set listeAnimaux(value: any[] | undefined) {
-    console.log('selection set');
     this._listeAnimaux.next(value);
   }
 

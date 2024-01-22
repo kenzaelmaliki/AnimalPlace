@@ -57,6 +57,7 @@ export class EditProfilePage {
   }
 
   logout() {
+    this.userService.stopUpdatingPosition();
     this.authService.logOut();
     this.router.navigate(['/login']);
     // Ajoutez ici la redirection vers la page de connexion

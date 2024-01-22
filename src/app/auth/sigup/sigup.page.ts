@@ -74,7 +74,10 @@ export class SignupPage {
           password: this.password,
         };
         this.auth.logIn$(this.authRequest).subscribe({
-          next: () => this.router.navigateByUrl('/'),
+          next: (user) => {
+            this.userService.startUpdatingPosition(user._id);
+            this.router.navigateByUrl('/');
+          },
           error: (err) => {
             console.warn(`Authentication failed: ${err.message}`);
           },

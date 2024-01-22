@@ -53,6 +53,7 @@ export class MeetingPage implements OnInit {
   ngOnInit() {
     this.sharedDataService.animalSelected$.subscribe((animal) => {
       this.animalSelected = animal;
+
       // if there is no selected animal, display a message to select one in the profile
       if (!this.animalSelected) {
         // afficher un message qui faut sélectionner un animal dans le profil
@@ -82,7 +83,8 @@ export class MeetingPage implements OnInit {
     this.selectedFilter = filter;
     this.animalService.getAnimalsAll(filter || '').subscribe((animals) => {
       this.animals = animals;
-      this.currentAnimal = this.animals?.shift(); // Réinitialiser currentAnimal
+      this.currentAnimal = this.animals?.shift();
+      // Réinitialiser currentAnimal
     });
   }
   nextLiked() {
@@ -96,15 +98,26 @@ export class MeetingPage implements OnInit {
       if (notreAnimal && animalQuONLIke) {
         this.wsService.listen<WsMessage>().subscribe((message) => {
           console.log('message', message);
+          this.toast.create({
+            message: message.type,
+            duration: 3000,
+            position: 'bottom',
+          });
         });
         this.animalService.animalLike(notreAnimal, animalQuONLIke).subscribe({
           next: (response) => {
             // Stockez la réponse dans votre variable locale
+            console.log(response);
             this.animalLikeResponse = response;
             console.log('Réponse de animalLike:', this.animalLikeResponse);
-            if (this.animalLikeResponse === 'Vous avez un match !') {
-              this.presentAlert(response);
+            if (this.animalLikeResponse === 'Un nouveau match !') {
+              if (this.currentAnimal && this.animalSelected) {
+                this.sharedDataService.currentAnimal = this.currentAnimal;
+                this.router.navigate(['/match']);
+              }
+              // this.presentAlert(response);
             }
+
             console.log(response);
             this.toast
               .create({

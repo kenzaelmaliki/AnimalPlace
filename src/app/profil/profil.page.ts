@@ -84,6 +84,7 @@ export class ProfilPage {
   }
 
   logout() {
+    this.userService.stopUpdatingPosition();
     this.authService.logOut();
   }
 

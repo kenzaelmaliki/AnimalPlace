@@ -1,15 +1,16 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>match</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/meeting"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Modifier le profil</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true" class="ion-padding">
-  <ion-header collapse="condense">
-  </ion-header>
-
   <div class="container ion-text-center">
-    <div class="square"></div>
+    <div class="square">
+      <img class="squareImg" src="{{currentAnimal?.profilePictureURL}}" />
+    </div>
     <div class="heart">
       <svg
         id="#iconHeart"
@@ -25,14 +26,17 @@
         />
       </svg>
     </div>
-    <div class="square"></div>
+    <div class="square">
+      <img class="squareImg" src="{{selectedAnimal?.profilePictureURL}}" />
+    </div>
   </div>
 
   <div class="text-container">
-    <h5> Vous avez matché!</h5>
+    <h5>Vous avez matché!</h5>
     <div class="text-container-deux">
-    <h4>Une promenade ensemble s’impose.
-      Retrouve Olive dès à présent sur ta map</h4>
+      <h4>
+        Une promenade ensemble s’impose. Retrouve Olive dès à présent sur ta map
+      </h4>
+    </div>
   </div>
-</div>
 </ion-content>

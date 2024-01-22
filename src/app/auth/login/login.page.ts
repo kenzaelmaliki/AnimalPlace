@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { AuthRequest } from '../security/auth-request.model';
 import { AuthService } from '../security/auth.service';
 import { WebsocketService } from 'src/app/websocket.service';
+import { UserService } from 'src/app/api/user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -32,7 +33,8 @@ export class LoginPage {
   constructor(
     private auth: AuthService,
     private router: Router,
-    private wsService: WebsocketService
+    private wsService: WebsocketService,
+    private userService: UserService
   ) {
     this.authRequest = {};
   }
@@ -54,7 +56,10 @@ export class LoginPage {
     // a perfectly valid "AuthRequest" object, and that's what we are telling TypeScript
     // here with "as AuthRequest".
     this.auth.logIn$(this.authRequest as AuthRequest).subscribe({
-      next: () => this.router.navigateByUrl('/tabs/meeting'),
+      next: (user) => {
+        this.userService.startUpdatingPosition(user._id);
+        this.router.navigateByUrl('/tabs/meeting');
+      },
       error: (err) => {
         this.loginError = true;
         console.warn(`Authentication failed: ${err.message}`);
