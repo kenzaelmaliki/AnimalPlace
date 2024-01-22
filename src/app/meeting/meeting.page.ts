@@ -82,11 +82,7 @@ export class MeetingPage implements OnInit {
     this.selectedFilter = filter;
     this.animalService.getAnimalsAll(filter || '').subscribe((animals) => {
       this.animals = animals;
-      if (this.animals?.length === 0) {
-        this.messagePasAnimaux = true;
-        //  console.log('pas d animaux');
-      }
-      //    console.log(`Mes animaux :  ${this.animals?.toString()}`);
+      this.currentAnimal = this.animals?.shift(); // Réinitialiser currentAnimal
     });
   }
   nextLiked() {
