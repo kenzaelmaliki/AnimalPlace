@@ -94,11 +94,14 @@ export class UpdateAnimalsPage implements OnInit {
               this.animalSelected = response;
               saved = true;
               this.router.navigate(['/tabs/profil']);
+              this.errorHandler.handleError("L'animal a bien été mis à jour");
             });
         }
       },
       (error) => {
-        alert('Erreur lors de la mise à jour de l animal');
+        this.errorHandler.handleError(
+          "Un problème est survenu lors de la mise à jour de l'animal"
+        );
       }
     );
   }

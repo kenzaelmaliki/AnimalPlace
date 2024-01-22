@@ -5,6 +5,7 @@ import { User } from '../models/user.model';
 import { UserService } from '../api/user.service';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { ErrorHandler } from '@angular/core';
 
 @Component({
   selector: 'app-edit-profile',
@@ -22,7 +23,8 @@ export class EditProfilePage {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private readonly errorHandler: ErrorHandler
   ) {}
 
   saveChanges() {
@@ -37,11 +39,17 @@ export class EditProfilePage {
           email: this.newEmail ? this.newEmail : user.email,
         };
 
-        this.userService
-          .updateUser(user._id, userData)
-          .subscribe((response) => {
+        this.userService.updateUser(user._id, userData).subscribe(
+          (response) => {
             this.user = response;
-          });
+            this.errorHandler.handleError('Votre profil a bien été mis à jour');
+          },
+          (error) => {
+            this.errorHandler.handleError(
+              'Problème lors de la mise à jour de votre profil'
+            );
+          }
+        );
       }
     });
 
