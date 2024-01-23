@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SharedDataService } from '../shared-data.service';
 import { Storage } from '@ionic/storage-angular';
-import { settingsOutline } from 'ionicons/icons';
+import { settingsOutline, createOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 
 @Component({
@@ -38,9 +38,14 @@ export class ProfilPage {
     private readonly sharedDataService: SharedDataService,
     private readonly storage: Storage
   ) {
-    addIcons({ settingsOutline });
+    addIcons({ settingsOutline, createOutline });
   }
 
+  ngOnInit() {
+    this.sharedDataService.listeAnimaux$.subscribe((listeAnimaux) => {
+      this.listeAnimaux = listeAnimaux;
+    });
+  }
   ionViewWillEnter() {
     this.fetchUserData();
   }

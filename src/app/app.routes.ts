@@ -67,6 +67,10 @@ export const routes: Routes = [
     path: 'match',
     loadComponent: () => import('./match/match.page').then( m => m.MatchPage)
   },
+  {
+    path: 'actualite-animal',
+    loadComponent: () => import('./actualite-animal/actualite-animal.page').then( m => m.ActualiteAnimalPage)
+  },
 
 ];
 

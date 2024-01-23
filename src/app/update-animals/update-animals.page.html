@@ -43,28 +43,14 @@
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating" aria-label="Photo de profil (URL)"
-          >Photo de profil (URL)</ion-label
-        >
-        <ion-input
-          inputmode="url"
-          #pictureInput="ngModel"
-          name="profilPictureUrl"
-          [(ngModel)]="newProfilPictureUrl"
-        ></ion-input>
-      </ion-item>
-      <ion-item lines="none"></ion-item>
-
-      <ion-item>
         <ion-label position="floating" aria-label="Prendre une photo">
           Prendre une photo
+          <ion-icon
+            class="uploadBoutton"
+            name="cloud-upload-outline"
+            (click)="takePicture()"
+          ></ion-icon>
         </ion-label>
-        <ion-button
-          fill="outline"
-          slot="end"
-          (click)="takePicture()"
-          class="boutonPrimaire"
-        ></ion-button>
       </ion-item>
 
       <ion-item>

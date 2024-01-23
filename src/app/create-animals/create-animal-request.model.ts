@@ -2,7 +2,8 @@ export type AnimalRequest = {
   name: string;
   species: string;
   age: number;
-  profilPictureUrl: string;
+  profilPictureURL: string;
+  picturesURL: string[];
   favoriteActivites: string[];
   location: string;
 };

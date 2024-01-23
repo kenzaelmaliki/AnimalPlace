@@ -10,7 +10,8 @@ import { AlertController } from '@ionic/angular';
 import { PictureService } from '../picture/picture.service';
 import { ErrorHandler } from '@angular/core';
 import { AppErrorHandler } from '../error-handler';
-
+import { imagesOutline, cloudUploadOutline } from 'ionicons/icons';
+import { addIcons } from 'ionicons';
 @Component({
   selector: 'app-update-animals',
   templateUrl: './update-animals.page.html',
@@ -34,7 +35,9 @@ export class UpdateAnimalsPage implements OnInit {
     private router: Router,
     public alertController: AlertController,
     private readonly errorHandler: ErrorHandler
-  ) {}
+  ) {
+    addIcons({ imagesOutline, cloudUploadOutline });
+  }
 
   ngOnInit() {
     this.sharedDataService.animalSelected$.subscribe((animal) => {
@@ -132,25 +135,35 @@ export class UpdateAnimalsPage implements OnInit {
 
   deleteAnimal() {
     // supprime l'animal qui est sélectionné
-    this.sharedDataService.animalSelected$.subscribe((animal) => {
-      if (animal) {
-        this.animalService.deleteAnimal(animal._id).subscribe(
-          (response) => {
-            console.log('Animal supprimé', response);
-            this.sharedDataService.notifyAnimalDeleted();
-            response = "L'animal a été supprimé";
-            this.errorHandler.handleError(response);
-            //  this.errorHandler.handleError(response);
-            this.router.navigate(['/tabs/profil']);
-          },
-          (error) => {
-            this.errorHandler.handleError("L'animal a bien été supprimé");
-            console.error("Erreur lors de la suppression de l'animal", error);
-          }
-        );
+    const subscription = this.sharedDataService.animalSelected$.subscribe(
+      (animal) => {
+        if (animal) {
+          this.animalService.deleteAnimal(animal._id).subscribe(
+            (response) => {
+              console.log('Animal supprimé', response);
+              this.sharedDataService.notifyAnimalDeleted();
+              response = "L'animal a été supprimé";
+              this.errorHandler.handleError(response);
+              //  this.errorHandler.handleError(response);
+              subscription.unsubscribe();
+              this.sharedDataService.updateAnimalList(this.animals);
+              this.router.navigate(['/tabs/profil']);
+            },
+            (error) => {
+              this.errorHandler.handleError("L'animal a bien été supprimé");
+              console.error("Erreur lors de la suppression de l'animal", error);
+            }
+          );
+        }
       }
-    });
+    );
     this.router.navigate(['/tabs/profil']);
+  }
+
+  private updateAnimalList() {
+    this.animalService.getAnimals().subscribe((animals) => {
+      this.sharedDataService.listeAnimaux = animals;
+    });
   }
 
   /////// UPLOAD PICTURE ///////

@@ -26,6 +26,10 @@ export class SharedDataService {
     this._notifyAnimalDeleted.next();
   }
 
+  updateAnimalList(newAnimalList: Animal[] | undefined) {
+    this._listeAnimaux.next(newAnimalList);
+  }
+
   set currentAnimal(value: Animal | undefined) {
     console.log('currentAnimal set by ', value);
     this.storage.set('currentAnimal', JSON.stringify(value));
@@ -46,7 +50,7 @@ export class SharedDataService {
   }
 
   get listeAnimaux$() {
-    return this._animalSelected.asObservable();
+    return this._listeAnimaux.asObservable();
   }
 
   set listeAnimaux(value: any[] | undefined) {

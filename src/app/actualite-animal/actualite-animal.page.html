@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon class="back-icon" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>actualite-animal</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense"> </ion-header>
+  <div class="container">
+    <h1>L'actualité de Olive</h1>
+
+    <ion-button (click)="voirSurLaCarte()">Voir sur la carte</ion-button>
+    <div class="custom-shape">
+      <h1 id="nameAnimal">Kaido</h1>
+      <ul class="custom-list">
+        <li>
+          <ion-icon class="pasIcon" name="paw"></ion-icon>
+          Berger Australien
+        </li>
+        <li>
+          <ion-icon class="pasIcon" name="paw"></ion-icon>
+          2 ans
+        </li>
+        <li>
+          <ion-icon class="pasIcon" name="paw"></ion-icon>
+          Lausanne
+        </li>
+        <li>
+          <ion-icon class="pasIcon" name="paw"></ion-icon>
+          Manger des os
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- mettre l'image de l'animal-->
+</ion-content>
