@@ -38,6 +38,7 @@ export class SharedDataService {
 
   get currentAnimal$() {
     console.log('currentAnimal get');
+
     return this._currentAnimal.asObservable();
   }
 

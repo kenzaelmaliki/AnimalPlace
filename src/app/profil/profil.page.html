@@ -64,6 +64,7 @@
             <img
               id="animalProfilPictures"
               src="{{matche.animal2.profilePictureURL}}"
+              (click)="afficheProfil(matche.animal2)"
             />
             <h2>
               {{matche.animal1.name}} a matché avec {{ matche.animal2.name}}

@@ -5,6 +5,9 @@ import { IonicModule } from '@ionic/angular';
 import { paw, arrowBackOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { NavController } from '@ionic/angular';
+import { SharedDataService } from '../shared-data.service';
+import { Animal } from '../models/animal.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-actualite-animal',
@@ -14,14 +17,24 @@ import { NavController } from '@ionic/angular';
   imports: [IonicModule, CommonModule, FormsModule],
 })
 export class ActualiteAnimalPage implements OnInit {
-  constructor(private navCtrl: NavController) {
+  currentAnimal: Animal | undefined;
+  constructor(
+    private navCtrl: NavController,
+    private sharedDataService: SharedDataService,
+    private router: Router
+  ) {
     addIcons({ paw, 'arrow-back-outline': arrowBackOutline });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.sharedDataService.currentAnimal$.subscribe((currentAnimal) => {
+      this.currentAnimal = currentAnimal;
+    });
+    console.log(this.currentAnimal);
+  }
   voirSurLaCarte() {
     // Logique pour naviguer vers la carte ou effectuer toute autre action
-    console.log('Voir sur la carte');
+    this.router.navigate(['tabs/map']);
   }
   goBack() {
     this.navCtrl.back(); // Utilisez cette ligne pour revenir à la page précédente

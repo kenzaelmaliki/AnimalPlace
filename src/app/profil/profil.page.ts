@@ -29,6 +29,7 @@ export class ProfilPage {
   animalSelected: Animal | undefined;
   listeAnimaux: Animal[] | undefined;
   matches: any[] | undefined;
+  currentAnimal: Animal | undefined;
 
   constructor(
     private readonly authService: AuthService,
@@ -44,6 +45,9 @@ export class ProfilPage {
   ngOnInit() {
     this.sharedDataService.listeAnimaux$.subscribe((listeAnimaux) => {
       this.listeAnimaux = listeAnimaux;
+    });
+    this.sharedDataService.currentAnimal$.subscribe((currentAnimal) => {
+      this.currentAnimal = currentAnimal;
     });
   }
   ionViewWillEnter() {
@@ -117,5 +121,11 @@ export class ProfilPage {
   updateAnimal(animal: Animal) {
     this.sharedDataService.animalSelected = animal;
     this.router.navigate(['tabs/update-animals']);
+  }
+
+  afficheProfil(animal: Animal) {
+    this.sharedDataService.currentAnimal = animal;
+    console.log('current animal', this.sharedDataService.currentAnimal);
+    this.router.navigate(['/actualite-animal']);
   }
 }

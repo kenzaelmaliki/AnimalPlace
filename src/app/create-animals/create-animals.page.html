@@ -75,22 +75,6 @@
         </ion-label>
       </ion-item>
 
-      <ion-item>
-        <ion-label position="floating" aria-label="Prendre une photo">
-          <ion-icon
-            class="uploadBoutton"
-            name="cloud-upload-outline"
-            (click)="takePicture()"
-            [(ngModel)]="animalRequest.picturesURL"
-          ></ion-icon>
-          <ion-input
-            inputmode="url"
-            #pictureInput="ngModel"
-            name="profilPictureUrl"
-            [(ngModel)]="animalRequest.profilPictureURL"
-          ></ion-input>
-        </ion-label>
-      </ion-item>
       <ion-item lines="none"></ion-item>
 
       <ion-item>
