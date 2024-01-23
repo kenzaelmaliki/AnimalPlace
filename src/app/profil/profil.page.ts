@@ -67,6 +67,7 @@ export class ProfilPage {
       if (this.userID) {
         this.userService.getUser(this.userID).subscribe((user) => {
           this.user = user;
+          console.log('user dans le sub ', this.user);
           // console.log('user dans le sub ', this.user);
         });
       }

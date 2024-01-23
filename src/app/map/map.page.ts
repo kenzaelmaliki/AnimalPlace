@@ -36,18 +36,13 @@ export class MapPage implements OnInit {
     this.userService.getAllUsers().subscribe((result) => {
       const users = result.users;
       for (let i = 0; i < users.length; i++) {
+        console.log('user ', i);
         console.log(users[i]);
         this.mapMarkers.push(
           marker(users[i].location.coordinates, {
             icon: defaultIcon,
             title: users[i].firstName + ' ' + users[i].lastName,
-          }).bindPopup(
-            users[i].firstName +
-              ' ' +
-              users[i].lastName +
-              '<br>' +
-              users[i].email
-          )
+          }).bindPopup(users[i].firstName)
         );
       }
       console.log('updated markers ', this.mapMarkers);
