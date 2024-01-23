@@ -112,6 +112,7 @@ export class MeetingPage implements OnInit {
             console.log('Réponse de animalLike:', this.animalLikeResponse);
             if (this.animalLikeResponse === 'Un nouveau match !') {
               if (this.currentAnimal && this.animalSelected) {
+                console.log('avant navigation on envoi', this.currentAnimal);
                 this.sharedDataService.currentAnimal = this.currentAnimal;
                 this.router.navigate(['/match']);
               }

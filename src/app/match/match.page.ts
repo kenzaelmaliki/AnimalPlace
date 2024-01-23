@@ -21,7 +21,10 @@ export class MatchPage implements OnInit {
     this.sharedDataService.animalSelected$.subscribe((animal) => {
       this.selectedAnimal = animal;
       console.log('animal selected', this.selectedAnimal);
-      console.log(this.currentAnimal);
+    });
+    this.sharedDataService.currentAnimal$.subscribe((animal) => {
+      this.currentAnimal = animal;
+      console.log('current animal', this.currentAnimal);
     });
   }
 }

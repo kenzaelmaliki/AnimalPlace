@@ -27,8 +27,14 @@ export class SharedDataService {
   }
 
   set currentAnimal(value: Animal | undefined) {
+    console.log('currentAnimal set by ', value);
     this.storage.set('currentAnimal', JSON.stringify(value));
     this._currentAnimal.next(value);
+  }
+
+  get currentAnimal$() {
+    console.log('currentAnimal get');
+    return this._currentAnimal.asObservable();
   }
 
   get notifyAnimalDeleted$() {
