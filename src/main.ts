@@ -15,6 +15,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppErrorHandler } from './app/error-handler';
+import { WebsocketService } from './app/websocket.service';
 
 defineCustomElements(window);
 if (environment.production) {
@@ -29,7 +30,14 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: ErrorHandler, useClass: AppErrorHandler },
+    {
+      provide: ErrorHandler,
+      useClass: AppErrorHandler,
+    },
+    {
+      provide: WebsocketService,
+      useClass: WebsocketService,
+    },
 
     provideIonicAngular(),
     provideRouter(routes),

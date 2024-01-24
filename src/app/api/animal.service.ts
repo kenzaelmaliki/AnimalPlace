@@ -22,64 +22,43 @@ const API_URL = 'https://archioweb-animalsplace.onrender.com';
 export class AnimalService {
   constructor(private http: HttpClient, private auth: AuthService) {}
 
+  // permet de récupérer les animaux de l'utilisateur actuel
   getAnimals(): Observable<Animal[] | undefined> {
     const url = `${API_URL}/animals?owner=true`;
-
-    // Récupérer le token depuis votre source d'authentification
     return this.auth.getToken$().pipe(
-      // Handle the token value in the pipe
       switchMap((authToken) => {
-        // Ajouter le token à l'en-tête d'autorisation
         const headers = new HttpHeaders().set(
           'Authorization',
           `Bearer ${authToken}`
         );
-
-        // Ajouter les en-têtes à la requête HTTP
         return this.http.get<Animal[]>(url, { headers });
       })
     );
   }
 
+  // permet de récupérer tous les animaux de la BD en spécifiant l'espèce que nous souhaitons voir
   getAnimalsAll(species: string): Observable<Animal[] | undefined> {
     const url = `${API_URL}/animals?species=${species}`;
-    // console.log(species);
-    // Récupérer le token depuis votre source d'authentification
     return this.auth.getToken$().pipe(
-      // Handle the token value in the pipe
       switchMap((authToken) => {
-        // Ajouter le token à l'en-tête d'autorisation
         const headers = new HttpHeaders().set(
           'Authorization',
           `Bearer ${authToken}`
         );
-
-        // Ajouter les en-têtes à la requête HTTP
         return this.http.get<Animal[]>(url, { headers });
       })
     );
   }
-  private handleApiError(error: any): string {
-    // Vous pouvez personnaliser cette fonction en fonction de la structure de vos erreurs API
-    if (error instanceof ErrorEvent) {
-      // Erreur côté client
-      return `Erreur côté client : ${error.message}`;
-    } else if (error && error.error && error.error.message) {
-      // Erreur côté serveur avec un message spécifique
-      return `Erreur du serveur API : ${error.error.message}`;
-    } else {
-      // Autre type d'erreur
-      return `Erreur du serveur API : ${error.status} - ${error.statusText}`;
-    }
-  }
 
+  // permet de modifier un animal à l'aide de son ID
   updateAnimals(id: string, animalsData: any): Observable<any> {
     const url = `${environment.apiUrl}/animals/${id}`;
-    //return this.http.patch<any>(url, userData);
     return this.auth
       .sendRequestWithToken$(url, 'PATCH', animalsData)
       .pipe(map((response: any) => response.message));
   }
+
+  // permet de créer un nouvel animal dans la BD
   createAnimal(animalData: any): Observable<any> {
     const url = `${environment.apiUrl}/animals`;
     console.log(animalData);
@@ -90,20 +69,22 @@ export class AnimalService {
       })
     );
   }
+
+  // permet de supprimer un animal de la BD
   deleteAnimal(id: string): Observable<any> {
     const url = `${environment.apiUrl}/animals/${id}`;
     return this.auth.sendRequestWithToken$(url, 'DELETE', undefined);
   }
 
+  // permet d'aimer un anial, pour cela nous avons besoin de l'ID de l'animal qui like et de l'ID de l'animal qui recoit le like
   animalLike(id: string, animalData: any): Observable<any> {
     const url = `${environment.apiUrl}/meetings/like/${id}`;
-    // retourner le message envoyé par l'api
-    // Assuming 'message' is a property in the response body
     return this.auth
       .sendRequestWithToken$(url, 'POST', animalData)
       .pipe(map((response: any) => response.message));
   }
 
+  // permet de récupérer la liste des matches acutels
   getMatches(): Observable<any> {
     const url = `${environment.apiUrl}/meetings/users`;
     return this.auth.sendRequestWithToken$(url, 'GET', undefined);

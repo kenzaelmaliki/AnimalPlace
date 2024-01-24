@@ -30,12 +30,15 @@ export class ActualiteAnimalPage implements OnInit {
   }
 
   ngOnInit() {
+    // permet de récupérer l'animal sélectionné dans la page meeting
     this.sharedDataService.currentAnimal$.subscribe((currentAnimal) => {
       this.currentAnimal = currentAnimal;
       if (this.currentAnimal) {
         this.owner = this.currentAnimal.owner;
         console.log('owener ' + this.owner);
       }
+      // on voulait récupérer le nom de l'utilisateur mais ça ne fonctionne pas étant donné que notre API permet uniquement de récupérer son propre profil et non celui des autres
+      // et on ne souhaitait pas modifier  l'API pour le moment
       /*    if (this.owner) {
         this.userService.getUser(this.owner).subscribe((user) => {
           console.log('on passe par là');
@@ -50,11 +53,8 @@ export class ActualiteAnimalPage implements OnInit {
     });
     // console.log(this.currentAnimal);
   }
+  // permet de se rendre sur la carte pour observer la localisation des utilisateurs
   voirSurLaCarte() {
-    // Logique pour naviguer vers la carte ou effectuer toute autre action
     this.router.navigate(['tabs/map']);
-  }
-  goBack() {
-    this.navCtrl.back(); // Utilisez cette ligne pour revenir à la page précédente
   }
 }

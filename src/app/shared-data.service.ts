@@ -23,6 +23,7 @@ export class SharedDataService {
   }
 
   notifyAnimalDeleted() {
+    this.storage.remove('animalSelected');
     this._notifyAnimalDeleted.next();
   }
 

@@ -51,17 +51,17 @@ export class UpdateAnimalsPage {
 
   ngOnInit() {}
 
+  // permet d'ajouter une image à l'animal actuel
   takePicture() {
     this.pictureService.takeAndUploadPicture().subscribe((picture) => {
-      console.log("Image successfully uploaded to Qimg's API ", picture);
+      //  console.log("Image successfully uploaded to Qimg's API ", picture);
       this.animalRequest.profilPictureURL = picture.url;
-      console.log('Image URL:', this.animalRequest.profilPictureURL);
-      console.log('Image URL:', this.animalRequest.profilPictureURL);
+      //  console.log('Image URL:', this.animalRequest.profilPictureURL);
     });
   }
 
+  // lorsque le formulaire est soumis on récupère les données et on les envoie à l'API
   onSubmit(form: NgForm) {
-    // Do not do anything if the form is invalid.
     if (form.invalid) {
       return;
     }
@@ -72,21 +72,19 @@ export class UpdateAnimalsPage {
       age: this.animalRequest.age,
       profilePictureURL: this.animalRequest.profilPictureURL,
       //  picturesURL: this.animalRequest.profilPictureUrl,
-      favoriteActivites: this.animalRequest.favoriteActivites,
+      favoriteActivities: this.animalRequest.favoriteActivites,
       location: this.animalRequest.location,
     };
 
-    console.log(animalData);
+    // console.log(animalData);
 
     this.animalService.createAnimal(animalData).subscribe(
       (animal) => {
-        console.log('Animal créé', animal);
+        console.log('Animal create', animal);
         this.router.navigate(['/tabs/profil']);
       },
       (error) => {
         this.messageError = error.error;
-        // Ajoutez ici le code pour afficher ou gérer l'erreur dans l'interface utilisateur.
-        // Par exemple, vous pouvez stocker le message d'erreur dans une variable pour l'afficher dans le template.
       }
     );
   }

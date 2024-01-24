@@ -34,6 +34,7 @@ export class UpdateAnimalsPage implements OnInit {
     private pictureService: PictureService,
     private router: Router,
     public alertController: AlertController,
+
     private readonly errorHandler: ErrorHandler
   ) {
     addIcons({ imagesOutline, cloudUploadOutline });
@@ -87,7 +88,7 @@ export class UpdateAnimalsPage implements OnInit {
 
     console.log('animalData', animalData);
 
-    this.sharedDataService.animalSelected$.subscribe(
+    const subscription = this.sharedDataService.animalSelected$.subscribe(
       (animal) => {
         if (animal && !saved) {
           console.log('animal ', animal, ' updated');
@@ -96,6 +97,7 @@ export class UpdateAnimalsPage implements OnInit {
             .subscribe((response) => {
               this.animalSelected = response;
               saved = true;
+              subscription.unsubscribe();
               this.router.navigate(['/tabs/profil']);
               this.errorHandler.handleError("L'animal a bien été mis à jour");
             });
@@ -144,9 +146,8 @@ export class UpdateAnimalsPage implements OnInit {
               this.sharedDataService.notifyAnimalDeleted();
               response = "L'animal a été supprimé";
               this.errorHandler.handleError(response);
-              //  this.errorHandler.handleError(response);
+              this.chargeAnimal();
               subscription.unsubscribe();
-              this.sharedDataService.updateAnimalList(this.animals);
               this.router.navigate(['/tabs/profil']);
             },
             (error) => {
@@ -157,7 +158,13 @@ export class UpdateAnimalsPage implements OnInit {
         }
       }
     );
-    this.router.navigate(['/tabs/profil']);
+  }
+
+  chargeAnimal() {
+    this.animalService.getAnimals().subscribe((animals) => {
+      this.animals = animals;
+      console.log('animals', animals);
+    });
   }
 
   private updateAnimalList() {

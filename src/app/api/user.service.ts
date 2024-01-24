@@ -16,16 +16,18 @@ export class UserService {
     private localisationService: LocalisationService
   ) {}
 
+  // permet d'ajouter un utilisateur à la BD
   addUser(userData: any) {
     const url = `${environment.apiUrl}/users`;
     return this.http.post<any>(url, userData);
   }
-
+  // permet de récupérer un utilisateur spécifique à la BD en spécifiant son ID
   getUser(id: string): Observable<any> {
     const url = `${environment.apiUrl}/users/${id}`;
     return this.authService.sendRequestWithToken$(url, 'GET', undefined);
   }
 
+  // permet de mettre à jour un utilisateur à l'aide de son ID
   updateUser(id: string, userData: any): Observable<any> {
     const url = `${environment.apiUrl}/users/${id}`;
     console.log(userData);
@@ -34,6 +36,7 @@ export class UserService {
     return this.authService.sendRequestWithToken$(url, 'PATCH', userData);
   }
 
+  // permet de localiser un utilisateur
   startUpdatingPosition(id: string) {
     console.log('start updating position');
     this.localisationService.watchLocalisation(
@@ -61,9 +64,14 @@ export class UserService {
     console.log('stop updating position');
     this.localisationService.stopWatchingLocalisation();
   }
-
+  // permet de récupérer tous les utilisateurs de la BD
   getAllUsers(): Observable<any> {
     const url = `${environment.apiUrl}/users`;
     return this.authService.sendRequestWithToken$(url, 'GET', undefined);
+  }
+
+  deleteUser(id: string): Observable<any> {
+    const url = `${environment.apiUrl}/users/${id}`;
+    return this.authService.sendRequestWithToken$(url, 'DELETE', undefined);
   }
 }

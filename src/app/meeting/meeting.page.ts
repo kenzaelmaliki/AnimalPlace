@@ -6,11 +6,8 @@ import { SharedDataService } from '../shared-data.service';
 import { Animal } from '../models/animal.model';
 import { AnimalService } from '../api/animal.service';
 import { WebsocketService } from '../websocket.service';
-import { IonSegment } from '@ionic/angular/standalone';
 import { WsMessage } from '../../app/api/WsMessage.service';
 import { Subscription } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { settingsOutline } from 'ionicons/icons';
@@ -53,11 +50,8 @@ export class MeetingPage implements OnInit {
   ngOnInit() {
     this.sharedDataService.animalSelected$.subscribe((animal) => {
       this.animalSelected = animal;
-
-      // if there is no selected animal, display a message to select one in the profile
       if (!this.animalSelected) {
-        // afficher un message qui faut sélectionner un animal dans le profil
-        console.log('Sélectionnez un animal dans le profil');
+        console.log("pas d'animal sélectionné");
       }
       // console.log('Animal sélectionné dans la page:', this.animalSelected);
     });
@@ -84,7 +78,6 @@ export class MeetingPage implements OnInit {
     this.animalService.getAnimalsAll(filter || '').subscribe((animals) => {
       this.animals = animals;
       this.currentAnimal = this.animals?.shift();
-      // Réinitialiser currentAnimal
     });
   }
   nextLiked() {
@@ -95,7 +88,7 @@ export class MeetingPage implements OnInit {
 
       const notreAnimal = this.animalSelected?._id;
 
-      if (notreAnimal && animalQuONLIke) {
+      /*   if (notreAnimal && animalQuONLIke) {
         this.wsService.listen<WsMessage>().subscribe((message) => {
           console.log('message', message);
           this.toast.create({
@@ -103,34 +96,39 @@ export class MeetingPage implements OnInit {
             duration: 3000,
             position: 'bottom',
           });
-        });
-        this.animalService.animalLike(notreAnimal, animalQuONLIke).subscribe({
-          next: (response) => {
-            // Stockez la réponse dans votre variable locale
-            console.log(response);
-            this.animalLikeResponse = response;
-            console.log('Réponse de animalLike:', this.animalLikeResponse);
-            if (this.animalLikeResponse === 'Un nouveau match !') {
-              if (this.currentAnimal && this.animalSelected) {
-                console.log('avant navigation on envoi', this.currentAnimal);
-                this.sharedDataService.currentAnimal = this.currentAnimal;
-                this.router.navigate(['/match']);
-              }
-              // this.presentAlert(response);
-            }
+        }); */
 
-            console.log(response);
-            this.toast
-              .create({
-                message: response,
-                duration: 3000,
-                position: 'bottom',
-              })
-              .then((toast) => {
-                toast.present();
-              });
-          },
-        });
+      if (this.animalSelected && this.currentAnimal) {
+        this.animalService
+          .animalLike(this.animalSelected._id, animalQuONLIke)
+          .subscribe({
+            next: (response) => {
+              // Stockez la réponse dans votre variable locale
+              console.log(response);
+              this.animalLikeResponse = response;
+              console.log('Réponse de animalLike:', this.animalLikeResponse);
+              if (this.animalLikeResponse === 'Un nouveau match !') {
+                if (this.currentAnimal && this.animalSelected) {
+                  console.log('match ça passe');
+                  //  console.log('avant navigation on envoi', this.currentAnimal);
+                  this.sharedDataService.currentAnimal = this.currentAnimal;
+                  this.router.navigate(['/match']);
+                }
+                // this.presentAlert(response);
+              }
+
+              console.log(response);
+              this.toast
+                .create({
+                  message: response,
+                  duration: 3000,
+                  position: 'bottom',
+                })
+                .then((toast) => {
+                  toast.present();
+                });
+            },
+          });
       }
       const data = {
         type: 'Vous avez un nouveau like',
@@ -146,10 +144,9 @@ export class MeetingPage implements OnInit {
         console.log('message', this.message);
         this.sendMessage();
       });
+
       this.selectNextAnimal();
     }
-
-    // Stockez la réponse dans votre variable locale
   }
 
   sendMessage() {
@@ -166,13 +163,6 @@ export class MeetingPage implements OnInit {
     }
     console.log(this.animals, this.currentAnimal);
   }
-
-  /* ngOnDestroy() {
-    // Assurez-vous de vous désabonner pour éviter les fuites de mémoire
-    if (this.wsSubscription) {
-      this.wsSubscription.unsubscribe();
-    }
-  } */
 
   presentAlert(response: string) {
     if (response === 'Vous avez un match !') {

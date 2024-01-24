@@ -6,6 +6,7 @@ import { UserService } from '../api/user.service';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ErrorHandler } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-edit-profile',
@@ -24,13 +25,17 @@ export class EditProfilePage {
     private authService: AuthService,
     private router: Router,
     private userService: UserService,
-    private readonly errorHandler: ErrorHandler
-  ) {}
+    private readonly errorHandler: ErrorHandler,
+    private readonly alertController: AlertController
+  ) {
+    this.authService.getUser$().subscribe((user) => {
+      if (user) {
+        this.user = user;
+      }
+    });
+  }
 
   saveChanges() {
-    // Appeler le service d'authentification pour mettre à jour le profil
-    // Remplacez cela par la logique réelle pour mettre à jour le profil
-
     this.authService.getUser$().subscribe((user) => {
       if (user) {
         const userData = {
@@ -56,10 +61,49 @@ export class EditProfilePage {
     this.router.navigate(['/tabs/profil']);
   }
 
+  // lorsqu'un utilisateur se déconnecte, on arrête de mettre à jour sa position, on le déconnecte et on le redirige vers la page de connexion
   logout() {
     this.userService.stopUpdatingPosition();
     this.authService.logOut();
     this.router.navigate(['/login']);
-    // Ajoutez ici la redirection vers la page de connexion
+  }
+
+  async confirmDelete() {
+    const alert = await this.alertController.create({
+      header: 'Confirmation',
+      message: 'Voulez-vous vraiment supprimer votre compte ?',
+      buttons: [
+        {
+          text: 'Annuler',
+          role: 'cancel',
+          cssClass: 'secondary',
+        },
+        {
+          text: 'Supprimer',
+          handler: () => {
+            this.deleteAccount();
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+  // permet de supprimer un compte utilisateur
+  deleteAccount() {
+    console.log(this.user?._id);
+    const userId = this.user?._id ?? '';
+    console.log(userId);
+    this.userService.deleteUser(userId).subscribe(
+      (response) => {
+        this.errorHandler.handleError('Votre compte a bien été supprimé');
+        this.logout();
+      },
+      (error) => {
+        this.errorHandler.handleError(
+          'Problème lors de la suppression de votre compte'
+        );
+      }
+    );
   }
 }
