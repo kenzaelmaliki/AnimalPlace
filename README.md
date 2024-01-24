@@ -17,3 +17,6 @@ Animals Place offre une plateforme de rencontres dédiée aux animaux, permettan
 - Kenza El Maliki
 - Lucie Hadjian
 - Jorane Membrez
+
+## Présentation
+Lien pour consulter la vidéo de présentation : https://youtu.be/PTEpn15hJWk
