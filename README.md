@@ -32,7 +32,7 @@ Animals Place offre une plateforme de rencontres dédiée aux animaux, permettan
    ```
    npm install
    ```
-4. Rendez-vous dans le dossier `/src/environments` et renommer le fichier `environment.sample.ts` en `environment.ts`. 
+4. Rendez-vous dans le dossier `/src/environments/environment.ts` et ajouter votre token d'API qimg. 
 
 5. Exécuter l'application
    ```
